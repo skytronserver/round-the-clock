@@ -36,14 +36,19 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <motion.img 
-            src="/lovable-uploads/7f021628-ea58-4817-8b40-0370371ba5e3.png" 
-            alt="Round The Clock Logo" 
-            className={`h-12 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
+          <motion.div 
+            className={`rounded-full overflow-hidden border-2 ${scrolled ? 'border-rtc-red' : 'border-rtc-cream'} p-[2px] shadow-lg`}
             initial={{ rotate: -10 }}
             animate={{ rotate: 0 }}
             transition={{ type: "spring", stiffness: 200 }}
-          />
+            whileHover={{ scale: 1.1, rotate: 10 }}
+          >
+            <motion.img 
+              src="/lovable-uploads/7f021628-ea58-4817-8b40-0370371ba5e3.png" 
+              alt="Round The Clock Logo" 
+              className={`h-10 w-10 object-cover transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
+            />
+          </motion.div>
           <div className={`${scrolled ? 'text-rtc-red' : 'text-rtc-cream'} font-display text-2xl font-bold flex items-center`}>
             <span className="hidden sm:inline">ROUND THE CLOCK</span>
           </div>
