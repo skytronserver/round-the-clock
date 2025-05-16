@@ -27,9 +27,13 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="#" className="flex items-center gap-2">
+          <img 
+            src="/lovable-uploads/7f021628-ea58-4817-8b40-0370371ba5e3.png" 
+            alt="Round The Clock Logo" 
+            className={`h-12 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
+          />
           <div className={`${scrolled ? 'text-rtc-red' : 'text-rtc-cream'} font-display text-2xl font-bold flex items-center`}>
-            <Clock className="mr-2" size={24} />
-            <span>ROUND THE CLOCK</span>
+            <span className="hidden sm:inline">ROUND THE CLOCK</span>
           </div>
         </a>
 

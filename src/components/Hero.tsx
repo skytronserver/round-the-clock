@@ -6,13 +6,6 @@ const Hero = () => {
     <section id="home" className="hero-section">
       <div className="absolute inset-0 bg-[url('/lovable-uploads/7f021628-ea58-4817-8b40-0370371ba5e3.png')] opacity-20 bg-center bg-no-repeat bg-contain"></div>
       <div className="container mx-auto px-4 pt-24 pb-12 relative z-10 flex flex-col items-center justify-center text-center">
-        <div className="mb-8 animate-float">
-          <img 
-            src="/lovable-uploads/7f021628-ea58-4817-8b40-0370371ba5e3.png" 
-            alt="Round The Clock Logo" 
-            className="w-64 md:w-80 mx-auto"
-          />
-        </div>
         <h1 className="text-4xl md:text-6xl font-bold text-rtc-cream mb-6">
           Delicious Food <br className="md:hidden" />
           <span className="text-white">Round The Clock</span>
