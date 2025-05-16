@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FoodCard from './FoodCard';
-import { motion } from 'framer-motion';
 
 // Sample menu data
 const menuCategories = [
@@ -49,84 +48,36 @@ const menuItems = {
 const FoodCategory = () => {
   const [activeTab, setActiveTab] = useState('breakfast');
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
   return (
     <section id="menu" className="section-container bg-white">
-      <motion.div 
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7 }}
-      >
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold mb-4 text-rtc-dark"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          Our Menu
-        </motion.h2>
-        <motion.p 
-          className="text-gray-600 max-w-2xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-rtc-dark">Our Menu</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
           From breakfast to dinner and everything in between, our menu offers a wide variety of options to satisfy your cravings any time of day.
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
       <Tabs defaultValue="breakfast" className="w-full" onValueChange={setActiveTab}>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
-            {menuCategories.map((category, idx) => (
-              <motion.div
-                key={category.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 * idx, duration: 0.4 }}
-              >
-                <TabsTrigger 
-                  value={category.id}
-                  className={`rounded-full px-6 py-2 font-medium transition-all duration-300
-                  ${activeTab === category.id ? 'bg-rtc-red text-white shadow-md' : 'bg-gray-100 hover:bg-gray-200'}`}
-                >
-                  {category.name}
-                </TabsTrigger>
-              </motion.div>
-            ))}
-          </TabsList>
-        </motion.div>
+        <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
+          {menuCategories.map(category => (
+            <TabsTrigger 
+              key={category.id}
+              value={category.id}
+              className={`rounded-full px-6 py-2 font-medium transition-all duration-300
+              ${activeTab === category.id ? 'bg-rtc-red text-white shadow-md' : 'bg-gray-100 hover:bg-gray-200'}`}
+            >
+              {category.name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
 
         {menuCategories.map(category => (
           <TabsContent key={category.id} value={category.id} className="mt-4">
-            <motion.div 
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            >
-              {menuItems[category.id as keyof typeof menuItems].map((item, index) => (
-                <FoodCard key={item.id} item={item} index={index} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {menuItems[category.id as keyof typeof menuItems].map(item => (
+                <FoodCard key={item.id} item={item} />
               ))}
-            </motion.div>
+            </div>
           </TabsContent>
         ))}
       </Tabs>
