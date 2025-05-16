@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -12,7 +13,7 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1rem',
 			screens: {
 				'2xl': '1400px'
 			}
@@ -61,7 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Custom colors for Round The Clock
+                rtc: {
+                    red: '#ea384c',
+                    cream: '#FEF7CD',
+                    peach: '#FDE1D3',
+                    dark: '#222222',
+                }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +92,26 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+                'ping-slow': {
+                    '0%': { transform: 'scale(1)', opacity: '1' },
+                    '75%, 100%': { transform: 'scale(1.1)', opacity: '0.5' },
+                },
+                'float': {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'ping-slow': 'ping-slow 3s ease-in-out infinite',
+                'float': 'float 5s ease-in-out infinite',
+			},
+            fontFamily: {
+                'display': ['Oswald', 'sans-serif'],
+                'body': ['Roboto', 'sans-serif'],
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

@@ -1,12 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import FoodCategory from "@/components/FoodCategory";
+import Specials from "@/components/Specials";
+import AboutSection from "@/components/AboutSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 const Index = () => {
+  // Update the page title when the component mounts
+  useEffect(() => {
+    document.title = "Round The Clock - Food Available 24/7";
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <Hero />
+      <FoodCategory />
+      <Specials />
+      <AboutSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 };
