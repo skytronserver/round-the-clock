@@ -7,6 +7,7 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Index = () => {
   // Update the page title when the component mounts
@@ -15,15 +16,22 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <Hero />
-      <FoodCategory />
-      <Specials />
-      <AboutSection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <AnimatePresence>
+      <motion.div 
+        className="min-h-screen flex flex-col"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <Navbar />
+        <Hero />
+        <FoodCategory />
+        <Specials />
+        <AboutSection />
+        <ContactSection />
+        <Footer />
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
