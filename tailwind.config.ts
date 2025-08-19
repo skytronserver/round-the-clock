@@ -65,7 +65,7 @@ export default {
 				},
 				// Custom colors for Round The Clock
                 rtc: {
-                    red: '#ea384c',
+                    red: '#d52e2c',
                     cream: '#FEF7CD',
                     peach: '#FDE1D3',
                     dark: '#222222',

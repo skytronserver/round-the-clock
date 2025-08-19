@@ -49,38 +49,53 @@ const FoodCategory = () => {
   const [activeTab, setActiveTab] = useState('breakfast');
 
   return (
-    <section id="menu" className="section-container bg-white">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-rtc-dark">Our Menu</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          From breakfast to dinner and everything in between, our menu offers a wide variety of options to satisfy your cravings any time of day.
-        </p>
+    <section id="menu" className="relative bg-[url(/lovable-uploads/back3.png)] bg-contain bg-center overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-white/60"></div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 w-40 h-40 border border-rtc-red rounded-full animate-ping-slow"></div>
+        <div className="absolute top-1/3 right-20 w-32 h-32 border border-rtc-red rounded-full animate-ping-slow" style={{animationDelay: '1.5s'}}></div>
+        <div className="absolute bottom-32 left-1/4 w-36 h-36 border border-rtc-red rounded-full animate-ping-slow" style={{animationDelay: '3s'}}></div>
       </div>
+      
+      <div className="container mx-auto py-20 px-4 md:px-6 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-rtc-red/10 backdrop-blur-sm border border-rtc-red/20 rounded-full px-6 py-2 mb-6">
+            <span className="text-rtc-red text-sm font-medium">Freshly Prepared Daily</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-rtc-dark leading-tight">
+            Our <span className="text-rtc-red">Delicious</span> Menu
+          </h2>
+          <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            From breakfast to dinner and everything in between, our menu offers a wide variety of options to satisfy your cravings any time of day.
+          </p>
+        </div>
 
-      <Tabs defaultValue="breakfast" className="w-full" onValueChange={setActiveTab}>
-        <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
+        <Tabs defaultValue="breakfast" className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
+            {menuCategories.map(category => (
+              <TabsTrigger 
+                key={category.id}
+                value={category.id}
+                className={`rounded-full px-6 py-2 font-medium transition-all duration-300
+                ${activeTab === category.id ? 'bg-rtc-red text-white shadow-md' : 'bg-gray-100 hover:bg-gray-200'}`}
+              >
+                {category.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
           {menuCategories.map(category => (
-            <TabsTrigger 
-              key={category.id}
-              value={category.id}
-              className={`rounded-full px-6 py-2 font-medium transition-all duration-300
-              ${activeTab === category.id ? 'bg-rtc-red text-white shadow-md' : 'bg-gray-100 hover:bg-gray-200'}`}
-            >
-              {category.name}
-            </TabsTrigger>
+            <TabsContent key={category.id} value={category.id} className="mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {menuItems[category.id as keyof typeof menuItems].map(item => (
+                  <FoodCard key={item.id} item={item} />
+                ))}
+              </div>
+            </TabsContent>
           ))}
-        </TabsList>
-
-        {menuCategories.map(category => (
-          <TabsContent key={category.id} value={category.id} className="mt-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {menuItems[category.id as keyof typeof menuItems].map(item => (
-                <FoodCard key={item.id} item={item} />
-              ))}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+        </Tabs>
+      </div>
     </section>
   );
 };

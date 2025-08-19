@@ -28,13 +28,27 @@ const Specials = () => {
   ];
 
   return (
-    <section id="specials" className="section-container bg-rtc-cream/30">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-rtc-dark">Special Offers</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Take advantage of our special deals and promotions throughout the day
-        </p>
+    <section id="specials" className="relative bg-[url(/lovable-uploads/back3.png)] bg-cover bg-center overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-white/60"></div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-32 right-16 w-44 h-44 border border-rtc-red rounded-full animate-ping-slow"></div>
+        <div className="absolute bottom-20 left-20 w-36 h-36 border border-rtc-red rounded-full animate-ping-slow" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-28 h-28 border border-rtc-red rounded-full animate-ping-slow" style={{animationDelay: '1s'}}></div>
       </div>
+      
+      <div className="container mx-auto py-20 px-4 md:px-6 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-rtc-red/10 backdrop-blur-sm border border-rtc-red/20 rounded-full px-6 py-2 mb-6">
+            <span className="text-rtc-red text-sm font-medium">Limited Time Offers</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-rtc-dark leading-tight">
+            Special <span className="text-rtc-red">Deals</span> & Offers
+          </h2>
+          <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            Take advantage of our special deals and promotions throughout the day
+          </p>
+        </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {specialOffers.map((offer) => (
@@ -51,6 +65,7 @@ const Specials = () => {
             </CardContent>
           </Card>
         ))}
+      </div>
       </div>
     </section>
   );
