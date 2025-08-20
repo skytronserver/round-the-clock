@@ -29,7 +29,7 @@ const Hero = () => {
 
           {/* Main heading with gradient text effect */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-            <span className="block text-rtc-cream mb-2 tracking-tight">
+            <span className="block text-white mb-2 tracking-tight">
               Delicious Food
             </span>
           </h1>

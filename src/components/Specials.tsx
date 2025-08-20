@@ -14,7 +14,7 @@ const Specials = () => {
     {
       id: 2,
       title: "Lunch Combo",
-      description: "Any sandwich or burger + fries + drink for just $12.99",
+      description: "Any sandwich or burger + fries + drink for 50% off",
       icon: <Utensils className="h-8 w-8 text-rtc-red" />,
       timeframe: "11AM - 2PM Weekdays"
     },
