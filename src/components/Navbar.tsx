@@ -22,19 +22,16 @@ const Navbar = () => {
   return (
     <nav 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[url(/lovable-uploads/back.png)] bg-contain bg-center shadow-md py-2' : 'bg-[url(/lovable-uploads/back.png)] bg-contain bg-center py-4'
+        scrolled ? 'bg-[url(/lovable-uploads/asas.png)] bg-contain bg-center shadow-md py-0' : 'bg-[url(/lovable-uploads/asas.png)] bg-contain bg-center py-0 '
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container w-full mx-auto px-4 flex justify-between items-center">
         <a href="#" className="flex items-center gap-2">
           <img 
             src="/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg" 
             alt="Round The Clock Logo" 
-            className={`h-12 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
+            className={`h-20 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
           />
-          <div className={`text-rtc-cream font-display text-2xl font-bold flex items-center`}>
-            <span className="hidden sm:inline">ROUND THE CLOCK</span>
-          </div>
         </a>
 
         {/* Desktop Navigation */}

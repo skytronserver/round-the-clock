@@ -28,9 +28,8 @@ const Specials = () => {
   ];
 
   return (
-    <section id="specials" className="relative bg-[url(/lovable-uploads/back3.png)] bg-cover bg-center overflow-hidden">
+    <section id="specials" className="relative bg-[url(/lovable-uploads/lol.png)] bg-contain bg-center overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-white/60"></div>
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-32 right-16 w-44 h-44 border border-rtc-red rounded-full animate-ping-slow"></div>
         <div className="absolute bottom-20 left-20 w-36 h-36 border border-rtc-red rounded-full animate-ping-slow" style={{animationDelay: '2s'}}></div>

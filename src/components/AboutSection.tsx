@@ -2,9 +2,8 @@ import { Clock, Users, Award, MapPin } from 'lucide-react';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="relative bg-[url(/lovable-uploads/back3.png)] bg-cover bg-center overflow-hidden">
+    <section id="about" className="relative bg-[url(/lovable-uploads/lol.png)] bg-contain bg-center overflow-hidden">
       {/* Background overlay to reduce opacity */}
-      <div className="absolute inset-0 bg-white/60"></div>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-24 left-12 w-48 h-48 border border-rtc-red rounded-full animate-ping-slow"></div>
@@ -51,7 +50,7 @@ const AboutSection = () => {
               <img
                 src="/lovable-uploads/hero-1.jpg"
                 alt="Restaurant Interior"
-                className="w-full h-full object-cover rounded-2xl scale-100"
+                className="w-full h-full object-cover rounded-2xl scale-110"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-rtc-red to-red-700 p-6 rounded-2xl shadow-2xl hidden md:flex flex-col items-center justify-center text-white">

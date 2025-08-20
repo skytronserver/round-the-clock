@@ -26,26 +26,17 @@ const Hero = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20 pb-28">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-rtc-cream/20 backdrop-blur-sm border border-rtc-cream/30 rounded-full px-6 py-2 mb-8">
-            <Clock className="w-4 h-4 text-rtc-cream" />
-            <span className="text-rtc-cream text-sm font-medium">Open 24/7 - Always Fresh</span>
-          </div>
 
           {/* Main heading with gradient text effect */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
             <span className="block text-rtc-cream mb-2 tracking-tight">
               Delicious Food
             </span>
-            <span className="block bg-gradient-to-r from-white via-rtc-cream to-white bg-clip-text text-transparent animate-pulse">
-              Round The Clock
-            </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-rtc-cream/90 text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed">
-            Experience culinary excellence any time of day. From sunrise breakfast to midnight cravings, 
-            <span className="font-semibold text-white"> we're always here to satisfy your hunger</span>.
-          </p>
+           <figure>
+            <img src="/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg" alt="logo" />
+            </figure>  
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
@@ -68,7 +59,7 @@ const Hero = () => {
           </div>
 
           {/* Stats/Features */}
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+          {/* <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-black text-white mb-1">24/7</div>
               <div className="text-rtc-cream/80 text-sm font-medium">Always Open</div>
@@ -81,7 +72,7 @@ const Hero = () => {
               <div className="text-3xl md:text-4xl font-black text-white mb-1">⭐5.0</div>
               <div className="text-rtc-cream/80 text-sm font-medium">Customer Rating</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
