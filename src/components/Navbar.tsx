@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Clock } from 'lucide-react';
+import { Menu, X, Clock, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { toggleCart, getTotalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +48,22 @@ const Navbar = () => {
               {item}
             </a>
           ))}
+          <button
+            onClick={toggleCart}
+            className={`${
+              scrolled
+                ? 'bg-rtc-red text-white'
+                : 'bg-rtc-cream text-rtc-dark'
+            } px-4 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 relative`}
+          >
+            <ShoppingCart size={18} />
+            Cart
+            {getTotalItems() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {getTotalItems()}
+              </span>
+            )}
+          </button>
           <a
             href="#order"
             className={`${
@@ -59,7 +77,21 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation Toggle */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-4">
+          <button
+            onClick={toggleCart}
+            className={`${
+              scrolled ? 'text-rtc-red' : 'text-rtc-cream'
+            } focus:outline-none relative`}
+            aria-label="Open cart"
+          >
+            <ShoppingCart size={24} />
+            {getTotalItems() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {getTotalItems()}
+              </span>
+            )}
+          </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className={`${

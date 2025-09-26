@@ -6,6 +6,7 @@ import Specials from "@/components/Specials";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import CartModal from "@/components/CartModal";
 import { useEffect } from "react";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
       <AboutSection />
       <ContactSection />
       <Footer />
+      <CartModal />
     </div>
   );
 };

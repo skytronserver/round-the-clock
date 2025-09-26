@@ -1,17 +1,23 @@
 
-interface FoodItem {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  image: string;
-}
+import { useCart, FoodItem } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 interface FoodCardProps {
   item: FoodItem;
 }
 
 const FoodCard = ({ item }: FoodCardProps) => {
+  const { addItem, toggleCart } = useCart();
+
+  const handleAddToCart = () => {
+    addItem(item);
+    toast.success(`${item.name} added to cart!`);
+    // Optionally open cart after adding item
+    setTimeout(() => {
+      toggleCart();
+    }, 500);
+  };
+
   return (
     <div className="food-card group">
       <div className="relative h-48 overflow-hidden">
@@ -27,7 +33,10 @@ const FoodCard = ({ item }: FoodCardProps) => {
       <div className="p-4">
         <h3 className="font-bold text-lg mb-2 text-rtc-dark">{item.name}</h3>
         <p className="text-gray-600 text-sm mb-4">{item.description}</p>
-        <button className="w-full bg-rtc-cream text-rtc-dark py-2 rounded-full font-medium hover:bg-rtc-red hover:text-white transition-colors duration-300">
+        <button 
+          onClick={handleAddToCart}
+          className="w-full bg-rtc-cream text-rtc-dark py-2 rounded-full font-medium hover:bg-rtc-red hover:text-white transition-colors duration-300"
+        >
           Add to Order
         </button>
       </div>
