@@ -12,10 +12,6 @@ const FoodCard = ({ item }: FoodCardProps) => {
   const handleAddToCart = () => {
     addItem(item);
     toast.success(`${item.name} added to cart!`);
-    // Optionally open cart after adding item
-    setTimeout(() => {
-      toggleCart();
-    }, 500);
   };
 
   return (
