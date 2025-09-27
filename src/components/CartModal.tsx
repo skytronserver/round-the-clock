@@ -646,11 +646,14 @@ const CartModal = () => {
     printData += ESC + 'a' + '\x01'; // Center alignment
     
     // Simple header (no complex logo processing)
-    printData += ESC + '!' + '\x18'; // Double height and width
+    printData += ESC + '!' + '\x08'; // Normal height, double width
     printData += 'Delicious Food' + LF;
-    printData += ESC + '!' + '\x00'; // Normal size
+    printData += ESC + '!' + '\x38'; // Triple height, double width
+    printData += ESC + 'E' + '\x01'; // Bold on
     printData += 'ROUND THE CLOCK' + LF;
-    printData += 'Tel: +1-234-567-8900' + LF;
+    printData += ESC + 'E' + '\x00'; // Bold off
+    printData += ESC + '!' + '\x00'; // Normal size
+    printData += 'Tel: 7576004477' + LF;
     printData += LF;
     
     // Separator line
