@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Clock, ShoppingCart } from 'lucide-react';
+import { Menu, X, Clock, ShoppingCart, BarChart3, MessageSquare } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,20 +31,20 @@ const Navbar = () => {
       <div className="container w-full mx-auto px-4 flex justify-between items-center">
         <a href="#" className="flex items-center gap-2">
           <img 
-            src="/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg" 
+            src="/lovable-uploads/Round the Clock Logo.png" 
             alt="Round The Clock Logo" 
             className={`h-20 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
           />
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-6">
           {['Home', 'Menu', 'Specials', 'About', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
               className={`text-rtc-cream hover:text-white
-              font-medium transition-colors duration-300`}
+              font-medium transition-colors duration-300 text-sm`}
             >
               {item}
             </a>
@@ -54,26 +55,84 @@ const Navbar = () => {
               scrolled
                 ? 'bg-rtc-red text-white'
                 : 'bg-rtc-cream text-rtc-dark'
-            } px-4 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 relative`}
+            } px-3 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 relative text-sm`}
           >
-            <ShoppingCart size={18} />
-            Cart
+            <ShoppingCart size={16} />
+            <span className="hidden xl:inline">Cart</span>
             {getTotalItems() > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {getTotalItems()}
               </span>
             )}
           </button>
-          <a
-            href="#order"
+          <Link to="/reports">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } px-3 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 text-sm`}
+            >
+              <BarChart3 size={16} />
+              <span className="hidden xl:inline">Reports</span>
+            </button>
+          </Link>
+          <Link to="/feedback">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } px-3 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 text-sm`}
+            >
+              <MessageSquare size={16} />
+              <span className="hidden xl:inline">Feedback</span>
+            </button>
+          </Link>
+        </div>
+
+        {/* Tablet Navigation - Icons Only */}
+        <div className="hidden md:flex lg:hidden items-center space-x-4">
+          <button
+            onClick={toggleCart}
             className={`${
               scrolled
                 ? 'bg-rtc-red text-white'
                 : 'bg-rtc-cream text-rtc-dark'
-            } px-4 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90`}
+            } p-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 relative`}
+            title="Cart"
           >
-            Order Now
-          </a>
+            <ShoppingCart size={20} />
+            {getTotalItems() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {getTotalItems()}
+              </span>
+            )}
+          </button>
+          <Link to="/reports">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } p-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90`}
+              title="Reports"
+            >
+              <BarChart3 size={20} />
+            </button>
+          </Link>
+          <Link to="/feedback">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } p-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90`}
+              title="Feedback"
+            >
+              <MessageSquare size={20} />
+            </button>
+          </Link>
         </div>
 
         {/* Mobile Navigation Toggle */}
@@ -117,13 +176,18 @@ const Navbar = () => {
               {item}
             </a>
           ))}
-          <a
-            href="#order"
-            onClick={() => setIsOpen(false)}
-            className="block mt-4 bg-rtc-red text-white text-center px-4 py-2 rounded-full font-bold"
-          >
-            Order Now
-          </a>
+          <Link to="/reports" onClick={() => setIsOpen(false)}>
+            <div className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100 flex items-center gap-2">
+              <BarChart3 size={18} />
+              Reports
+            </div>
+          </Link>
+          <Link to="/feedback" onClick={() => setIsOpen(false)}>
+            <div className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100 flex items-center gap-2">
+              <MessageSquare size={18} />
+              Feedback
+            </div>
+          </Link>
         </div>
       )}
     </nav>

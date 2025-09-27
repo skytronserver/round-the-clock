@@ -1,7 +1,88 @@
 
 import { ArrowRight, Clock, Star, Utensils } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Slider content: starts with main slide, then shows menu items
+  const slides = [
+    // Welcome slide - "Delicious Food" + Logo + Button
+    {
+      type: 'main',
+      title: 'Delicious Food',
+      subtitle: '',
+      image: '/lovable-uploads/Round the Clock Logo.png',
+      showButton: true
+    },
+    // 🌯 Chicken Roll (full screen)
+    {
+      type: 'menu',
+      title: 'Chicken Roll',
+      subtitle: 'Crispy Wrap, Tender Chicken Magic',
+      price: '₹120',
+      image: '/Items/Chicken Roll.jpg',
+      showButton: false
+    },
+    // 🍜 Chicken Chow (full screen)
+    {
+      type: 'menu',
+      title: 'Chicken Chow',
+      subtitle: 'Street-Style Sizzle with Tender Chicken',
+      price: '₹140',
+      image: '/Items/Chicken Chow.jpg',
+      showButton: false
+    },
+    // 🥟 Steamed Chicken Momo (full screen)
+    {
+      type: 'menu',
+      title: 'Steamed Chicken Momo',
+      subtitle: 'Hot & Juicy Chicken Delight (6pcs)',
+      price: '₹80',
+      image: '/Items/Nepalese-Momo.webp',
+      showButton: false
+    },
+    // 🍦 Chocolate Almond Magnum (full screen)
+    {
+      type: 'menu',
+      title: 'Chocolate Almond Magnum',
+      subtitle: 'Premium chocolate-coated ice cream with roasted almonds',
+      price: '₹90',
+      image: '/IceCream/1.png',
+      showButton: false
+    },
+    // 🍦 Magnum Cone (full screen)
+    {
+      type: 'menu',
+      title: 'Magnum Cone',
+      subtitle: 'Crispy cone filled with chocolate-dipped creamy vanilla ice cream',
+      price: '₹100',
+      image: '/IceCream/5.jpg',
+      showButton: false
+    },
+    // 🍦 Cornetto Oreo (full screen)
+    {
+      type: 'menu',
+      title: 'Cornetto Oreo',
+      subtitle: 'Vanilla ice cream with Oreo chunks in a cone',
+      price: '₹70',
+      image: '/IceCream/11.jpg',
+      showButton: false
+    },
+  
+  ];
+
+  // Auto-slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const currentContent = slides[currentSlide];
+
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-4">
       {/* Background with gradient overlay */}
@@ -22,57 +103,73 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Full Screen Image for Menu Items */}
+      {currentContent.type === 'menu' && (
+        <div className="absolute inset-0 z-5">
+          <img 
+            src={currentContent.image} 
+            alt="Delicious Food"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+      )}
+
+      {/* Main content - Slider */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20 pb-28">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
+          {/* Slider Content */}
+          <div className="transition-all duration-1000 ease-in-out">
+            {/* Main heading - only show for main slides */}
+            {currentContent.type === 'main' && currentContent.title && (
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+                <span className="block text-white mb-2 tracking-tight">
+                  {currentContent.title}
+                </span>
+              </h1>
+            )}
 
-          {/* Main heading with gradient text effect */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
-            <span className="block text-white mb-2 tracking-tight">
-              Delicious Food
-            </span>
-          </h1>
+            {/* Menu item details - only show for menu slides */}
+            {currentContent.type === 'menu' && (
+              <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 max-w-2xl mx-auto mb-8">
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                  {currentContent.title}
+                </h2>
+                <p className="text-lg md:text-xl text-rtc-cream mb-6 leading-relaxed">
+                  {currentContent.subtitle}
+                </p>
+                <div className="text-4xl md:text-5xl font-black text-white bg-rtc-red px-6 py-3 rounded-full inline-block shadow-2xl">
+                  {currentContent.price}
+                </div>
+              </div>
+            )}
 
-           <figure>
-            <img src="/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg" alt="logo" />
-            </figure>  
+            {/* Logo - only show for main slides */}
+            {currentContent.type === 'main' && (
+              <figure className="mb-8">
+                <img 
+                  src={currentContent.image} 
+                  alt="Round The Clock Logo" 
+                  className="mx-auto max-h-64 md:max-h-80 lg:max-h-96"
+                />
+              </figure>
+            )}
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <a 
-              href="#menu" 
-              className="group bg-white text-rtc-red px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-white/25 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 inline-flex items-center gap-3"
-            >
-              <Utensils className="w-5 h-5" />
-              View Our Menu 
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
-            {/* <a 
-              href="#order" 
-              className="group bg-rtc-cream/20 backdrop-blur-sm border-2 border-rtc-cream text-rtc-cream px-8 py-4 rounded-full font-bold text-lg hover:bg-rtc-cream hover:text-rtc-red transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 inline-flex items-center gap-3"
-            >
-              <Clock className="w-5 h-5" />
-              Order Now 
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </a> */}
+            {/* CTA Button - only show for main slides */}
+            {currentContent.showButton && (
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+                <a 
+                  href="#menu" 
+                  className="group bg-white text-rtc-red px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-white/25 transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 inline-flex items-center gap-3"
+                >
+                  <Utensils className="w-5 h-5" />
+                  View Our Menu 
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </a>
+              </div>
+            )}
           </div>
 
-          {/* Stats/Features */}
-          {/* <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-white mb-1">24/7</div>
-              <div className="text-rtc-cream/80 text-sm font-medium">Always Open</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-white mb-1">100+</div>
-              <div className="text-rtc-cream/80 text-sm font-medium">Menu Items</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-black text-white mb-1">⭐5.0</div>
-              <div className="text-rtc-cream/80 text-sm font-medium">Customer Rating</div>
-            </div>
-          </div> */}
         </div>
       </div>
 

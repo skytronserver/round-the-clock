@@ -7,7 +7,7 @@ const Specials = () => {
     {
       id: 1,
       title: "Early Bird Special",
-      description: "30% off on all breakfast items from 6AM to 8AM daily",
+      description: "30% off on all rolls items from 6AM to 8AM daily",
       icon: <Coffee className="h-8 w-8 text-rtc-red" />,
       timeframe: "6AM - 8AM Daily"
     },
