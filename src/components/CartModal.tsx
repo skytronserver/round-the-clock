@@ -9,6 +9,8 @@ import { Separator } from '@/components/ui/separator';
 import { Minus, Plus, Trash2, ShoppingCart, Download, Printer, Bluetooth } from 'lucide-react';
 import { toast } from 'sonner';
 import FeedbackForm from './FeedbackForm';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // Web Bluetooth API type declarations
 declare global {
@@ -109,11 +111,14 @@ const CartModal = () => {
     const total = getTotalPrice();
     const currentDate = new Date().toLocaleString();
     
+    // Generate QR code URL for customer feedback
+    const feedbackUrl = `${window.location.origin}/feedback?order=${savedOrder ? savedOrder.orderNumber : 'N/A'}`;
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(feedbackUrl)}`;
+    
     return `
-      <div style="width: 5cm; max-width: 5cm; font-family: monospace; font-size: 12px; line-height: 1.4; margin: 0; padding: 0; box-sizing: border-box;">
+      <div style="width: 100%; font-family: monospace; font-size: 12px; line-height: 1.4; margin: 0; padding: 0; box-sizing: border-box;">
         <div style="text-align: center; margin-bottom: 10px;">
-        <h2 style="margin: 0; font-size: 18px; font-weight: bold;">Deicious Food</h2>
-          <img src="/lovable-uploads/Round the Clock Logo.png" alt="Round The Clock Logo" style="height: 80px; width: auto; margin: 0 auto 5px auto; display: block;" />
+          <img src="/lovable-uploads/LOKO.png" alt="Round The Clock Logo" style="height: 60px; width: auto; margin: 0 auto 5px auto; display: block;" />
           <p style="margin: 0; font-size: 10px;">Tel: +1-234-567-8900</p>
         </div>
         
@@ -121,18 +126,18 @@ const CartModal = () => {
           <div style="border-top: 1px solid #000; margin: 5px 0;"></div>
         </div>
 
-        <div style="text-align: left; margin: 5px 0;">
-          <p style="margin: 0; font-size: 10px;">Order No : ${savedOrder ? savedOrder.orderNumber : 'N/A'}</p>
-          <p style="margin: 0; font-size: 10px;">Date: ${currentDate}</p>
-          <p style="margin: 0; font-size: 10px;">Customer: ${customerName}</p>
-          <p style="margin: 0; font-size: 10px;">Phone: ${customerPhone}</p>
+        <div style="text-align: left; margin: 5px 0; padding-left: 0;">
+          <p style="margin: 0; padding: 0; font-size: 10px;">Order No : ${savedOrder ? savedOrder.orderNumber : 'N/A'}</p>
+          <p style="margin: 0; padding: 0; font-size: 10px;">Date: ${currentDate}</p>
+          <p style="margin: 0; padding: 0; font-size: 10px;">Customer: ${customerName}</p>
+          <p style="margin: 0; padding: 0; font-size: 10px;">Phone: ${customerPhone}</p>
         </div>
 
         <div style="text-align: center; margin: 5px 0;">
           <div style="border-top: 1px solid #000; margin: 5px 0;"></div>
         </div>
 
-        <div style="margin: 5px 0;">
+        <div style="margin: 5px 0; padding-left: 0;">
           ${state.items.map(item => {
             const itemPrice = parseFloat(item.price.replace(/[^\d.]/g, ''));
             const itemTotal = (itemPrice * item.quantity).toFixed(2);
@@ -141,9 +146,9 @@ const CartModal = () => {
             const line2Spaces = ' '.repeat(Math.max(1, 32 - (line2.length + `₹${itemTotal}`.length)));
             
             return `
-              <div style="margin-bottom: 5px;">
-                <div style="font-weight: bold;">${line1}</div>
-                <div style="font-size: 10px;">${line2}${line2Spaces}₹${itemTotal}</div>
+              <div style="margin-bottom: 5px; padding-left: 0;">
+                <div style="font-weight: bold; margin: 0; padding: 0;">${line1}</div>
+                <div style="font-size: 10px; margin: 0; padding: 0;">${line2}${line2Spaces}₹${itemTotal}</div>
               </div>
             `;
           }).join('')}
@@ -157,43 +162,90 @@ const CartModal = () => {
           <div style="font-size: 20px;">TOTAL: ₹${total.toFixed(2)}</div>
         </div>
 
-        <div style="text-align: center; margin-top: 10px; font-size: 16px;">
-          <p style="margin: 0; font-weight: 900; font-size: 18px;">We'd love to hear from you!</p>
+        <div style="text-align: center; margin: 10px 0;">
+          <div style="border-top: 1px solid #000; margin: 5px 0;"></div>
+        </div>
+
+        <div style="text-align: center; margin: 5px 0; page-break-inside: avoid;">
+          <p style="margin: 2px 0; font-weight: 900; font-size: 12px;">We'd love to hear from you!</p>
+          <div style="margin: 5px 0;">
+            <img src="${qrCodeUrl}" alt="Feedback QR Code" style="width: 60px; height: 60px; margin: 0 auto; display: block; page-break-inside: avoid;" />
+          </div>
+          <p style="margin: 2px 0; font-weight: bold; font-size: 10px; letter-spacing: 1px;">SCAN ME</p>
+          <p style="margin: 0; font-size: 8px; color: #333;">for feedback & reviews</p>
         </div>
       </div>
     `;
   };
 
-  const handleDownloadReceipt = () => {
-    const receiptHTML = generateReceiptHTML();
-    const blob = new Blob([`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Receipt - Round The Clock</title>
-        <style>
-          body { margin: 0; padding: 0; }
-          @media print {
-            body { margin: 0; }
-          }
-        </style>
-      </head>
-      <body>
-        ${receiptHTML}
-      </body>
-      </html>
-    `], { type: 'text/html' });
-    
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `receipt-${Date.now()}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    toast.success('Receipt downloaded successfully!');
+  const handleDownloadReceipt = async () => {
+    try {
+      toast.info('Generating PDF receipt...');
+      
+      // Create a temporary div with the receipt HTML
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = generateReceiptHTML();
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      tempDiv.style.top = '-9999px';
+      tempDiv.style.width = '58mm';
+      tempDiv.style.maxWidth = '58mm';
+      tempDiv.style.background = 'white';
+      tempDiv.style.padding = '5mm';
+      tempDiv.style.fontFamily = 'monospace';
+      tempDiv.style.fontSize = '10px';
+      tempDiv.style.lineHeight = '1.4';
+      tempDiv.style.overflow = 'visible';
+      tempDiv.style.height = 'auto';
+      document.body.appendChild(tempDiv);
+
+      // Wait a bit for images to load
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Convert HTML to canvas with better settings
+      const canvas = await html2canvas(tempDiv, {
+        scale: 3,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: tempDiv.scrollWidth,
+        height: tempDiv.scrollHeight,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: tempDiv.scrollWidth,
+        windowHeight: tempDiv.scrollHeight
+      });
+
+      // Remove temporary div
+      document.body.removeChild(tempDiv);
+
+      // Create PDF with dynamic height
+      const imgData = canvas.toDataURL('image/png');
+      const pdfWidth = 58;
+      const pdfHeight = Math.max(150, (canvas.height * pdfWidth) / canvas.width);
+      
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [pdfWidth, pdfHeight]
+      });
+
+      // Calculate dimensions to fit the full content
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Add image to PDF ensuring full content is included
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+      // Download PDF
+      const orderNumber = savedOrder ? savedOrder.orderNumber : Date.now();
+      pdf.save(`receipt-${orderNumber}.pdf`);
+      
+      toast.success('Receipt PDF downloaded successfully!');
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      toast.error('Failed to generate PDF. Please try again.');
+    }
   };
 
   const generateSimpleLogo = () => {
@@ -382,7 +434,7 @@ const CartModal = () => {
     
     // Print header with logo (always include logo and QR)
     try {
-      const logoData = await convertImageToBitmap('/lovable-uploads/Round the Clock Logo.png');
+      const logoData = await convertImageToBitmap('/lovable-uploads/LOKO.png');
       
       if (logoData && logoData.length > 50) { // Check for substantial data
         console.log('Logo converted successfully, adding to print data');
@@ -670,32 +722,66 @@ const CartModal = () => {
         <head>
           <title>Print Receipt</title>
           <style>
-            * { box-sizing: border-box; }
-            body { 
-              margin: 0; 
-              padding: 0; 
-              width: 5cm;
-              max-width: 5cm;
+            * { 
+              box-sizing: border-box; 
+              margin: 0;
+              padding: 0;
+            }
+            html, body { 
+              width: 100%;
+              height: auto;
               font-family: monospace;
+              font-size: 12px;
+              line-height: 1.4;
+            }
+            body { 
+              padding: 10px;
+              background: white;
             }
             @media print {
-              body { 
-                margin: 0; 
-                padding: 0;
-                width: 5cm;
-                max-width: 5cm;
+              html, body { 
+                width: 58mm;
+                margin: 0;
+                padding: 2mm;
+                font-size: 9px;
+                overflow: visible !important;
+                height: auto !important;
               }
               @page { 
-                size: 5.5cm auto; 
-                margin: 0; 
+                size: 58mm auto;
+                margin: 1mm;
+                overflow: visible;
+              }
+              * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                overflow: visible !important;
+                page-break-inside: avoid;
+              }
+              div {
+                margin-left: 0 !important;
+                padding-left: 0 !important;
+                overflow: visible !important;
+              }
+              img {
+                max-width: 40mm !important;
+                height: auto !important;
+                page-break-inside: avoid;
               }
             }
             @media screen {
               body {
+                max-width: 58mm;
                 margin: 10px auto;
                 border: 1px solid #ccc;
                 background: white;
+                padding: 10px;
               }
+            }
+            img {
+              max-width: 100% !important;
+              height: auto !important;
             }
           </style>
         </head>

@@ -12,72 +12,64 @@ const Hero = () => {
       type: 'main',
       title: 'Delicious Food',
       subtitle: '',
-      image: '/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg',
+      image: '/lovable-uploads/Round the Clock Logo.png',
       showButton: true
     },
-    // 🍔 Chicken Burger (full screen)
+    // 🌯 Chicken Roll (full screen)
     {
       type: 'menu',
-      title: 'Chicken Burger',
-      subtitle: 'Grilled chicken patty with fresh lettuce, tomato, and our special sauce',
-      price: '₹299',
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1899&auto=format&fit=crop',
+      title: 'Chicken Roll',
+      subtitle: 'Crispy Wrap, Tender Chicken Magic',
+      price: '₹120',
+      image: '/Items/Chicken Roll.jpg',
       showButton: false
     },
-    // 🥞 Pancakes (full screen)
+    // 🍜 Chicken Chow (full screen)
     {
       type: 'menu',
-      title: 'Fluffy Pancakes',
-      subtitle: 'Stack of golden pancakes with maple syrup and fresh berries',
-      price: '₹199',
-      image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1980&auto=format&fit=crop',
+      title: 'Chicken Chow',
+      subtitle: 'Street-Style Sizzle with Tender Chicken',
+      price: '₹140',
+      image: '/Items/Chicken Chow.jpg',
       showButton: false
     },
-    // 🍗 Grilled Chicken (full screen)
+    // 🥟 Steamed Chicken Momo (full screen)
     {
       type: 'menu',
-      title: 'Grilled Chicken',
-      subtitle: 'Tender grilled chicken breast with herbs and crispy fries',
-      price: '₹499',
-      image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2070&auto=format&fit=crop',
+      title: 'Steamed Chicken Momo',
+      subtitle: 'Hot & Juicy Chicken Delight (6pcs)',
+      price: '₹80',
+      image: '/Items/Nepalese-Momo.webp',
       showButton: false
     },
-    // 🍝 Pasta Carbonara (full screen)
+    // 🍦 Chocolate Almond Magnum (full screen)
     {
       type: 'menu',
-      title: 'Pasta Carbonara',
-      subtitle: 'Creamy pasta with bacon, eggs, and parmesan cheese',
-      price: '₹349',
-      image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=1771&auto=format&fit=crop',
+      title: 'Chocolate Almond Magnum',
+      subtitle: 'Premium chocolate-coated ice cream with roasted almonds',
+      price: '₹90',
+      image: '/IceCream/1.png',
       showButton: false
     },
-    // 🍰 Chocolate Cake (full screen)
+    // 🍦 Magnum Cone (full screen)
     {
       type: 'menu',
-      title: 'Chocolate Cake',
-      subtitle: 'Rich and moist chocolate cake with creamy frosting',
-      price: '₹149',
-      image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1887&auto=format&fit=crop',
+      title: 'Magnum Cone',
+      subtitle: 'Crispy cone filled with chocolate-dipped creamy vanilla ice cream',
+      price: '₹100',
+      image: '/IceCream/5.jpg',
       showButton: false
     },
-    // ☕ Cappuccino (full screen)
+    // 🍦 Cornetto Oreo (full screen)
     {
       type: 'menu',
-      title: 'Cappuccino',
-      subtitle: 'Rich espresso with steamed milk and perfect foam art',
-      price: '₹99',
-      image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=1887&auto=format&fit=crop',
+      title: 'Cornetto Oreo',
+      subtitle: 'Vanilla ice cream with Oreo chunks in a cone',
+      price: '₹70',
+      image: '/IceCream/11.jpg',
       showButton: false
     },
-    // 🍨 Ice Cream Sundae (full screen)
-    {
-      type: 'menu',
-      title: 'Ice Cream Sundae',
-      subtitle: 'Vanilla ice cream with chocolate sauce, nuts, and cherry',
-      price: '₹129',
-      image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=1827&auto=format&fit=crop',
-      showButton: false
-    }
+  
   ];
 
   // Auto-slide every 4 seconds
@@ -158,7 +150,7 @@ const Hero = () => {
                 <img 
                   src={currentContent.image} 
                   alt="Round The Clock Logo" 
-                  className="mx-auto max-h-32 md:max-h-40"
+                  className="mx-auto max-h-64 md:max-h-80 lg:max-h-96"
                 />
               </figure>
             )}

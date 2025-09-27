@@ -2,51 +2,80 @@
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FoodCard from './FoodCard';
+import { IceCream } from 'lucide-react';
 
 // Sample menu data
 const menuCategories = [
-  { id: 'breakfast', name: 'Breakfast' },
-  { id: 'lunch', name: 'Lunch' },
-  { id: 'dinner', name: 'Dinner' },
-  { id: 'desserts', name: 'Desserts' },
-  { id: 'drinks', name: 'Drinks' },
+  { id: 'Rolls', name: 'Rolls' },
+  { id: 'Chowin', name: 'Chowmin' },
+  { id: 'Momo', name: 'Momo' },
+  { id: 'IceCream', name: 'IceCream' },
+  { id: 'Drinks', name: 'Drinks' },
 ];
 
 const menuItems = {
-  breakfast: [
-    { id: 1, name: 'Classic Pancakes', description: 'Fluffy pancakes served with maple syrup and butter', price: '₹8.99', image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1980&auto=format&fit=crop' },
-    { id: 2, name: 'Avocado Toast', description: 'Fresh avocado on sourdough with poached eggs', price: '₹10.99', image: 'https://images.unsplash.com/photo-1603046891744-76e6481cf539?q=80&w=1974&auto=format&fit=crop' },
-    { id: 3, name: 'Breakfast Burrito', description: 'Scrambled eggs, sausage, cheese and salsa wrapped in a tortilla', price: '₹9.99', image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1964&auto=format&fit=crop' },
-    { id: 4, name: 'French Toast', description: 'Thick slices of bread soaked in a mixture of eggs and milk, then fried', price: '₹8.49', image: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?q=80&w=1547&auto=format&fit=crop' },
+  Rolls: [
+    { id: 1, name: 'Chicken Roll', description: 'Crispy Wrap, Tender Chicken Magic', price: '₹120', image: '/Items/Chicken Roll.jpg' },
+    { id: 2, name: 'Special Chicken Roll', description: 'Double Loaded! Egg + Chicken Indulgence', price: '₹155', image: '/Items/ChickenEggRoll.jpg' },
+    { id: 3, name: 'Egg Roll', description: 'Scrambled eggs, sausage, cheese and salsa wrapped in a tortilla', price: '₹90', image: '/Items/Egg roll.jpg' },
   ],
-  lunch: [
-    { id: 5, name: 'Classic Burger', description: 'Beef patty with lettuce, tomato, and special sauce', price: '₹12.99', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1899&auto=format&fit=crop' },
-    { id: 6, name: 'Caesar Salad', description: 'Romaine lettuce, croutons, parmesan cheese with Caesar dressing', price: '₹9.99', image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=2070&auto=format&fit=crop' },
-    { id: 7, name: 'Club Sandwich', description: 'Triple-decker sandwich with chicken, bacon, lettuce, and tomato', price: '₹11.49', image: 'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?q=80&w=1770&auto=format&fit=crop' },
-    { id: 8, name: 'Chicken Wrap', description: 'Grilled chicken with fresh vegetables in a whole wheat wrap', price: '₹10.99', image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=1964&auto=format&fit=crop' },
+  Chowin : [
+    { id: 5, name: 'Chicken Chow', description: 'Street-Style Sizzle with Tender Chicken', price: '₹140', image: '/Items/Chicken Chow.jpg' },
+    { id: 6, name: 'Egg Chow', description: 'Egg-Citing Taste, Every Bite!', price: '₹130', image: '/Items/Egg Chow.jpg' },
+    { id: 7, name: 'Veg Chow', description: 'Wok-Tossed Goodness, Garden Fresh', price: '₹120', image: '/Items/Veg Chow.jpg' },
   ],
-  dinner: [
-    { id: 9, name: 'Steak Frites', description: 'Grilled steak with crispy french fries', price: '₹18.99', image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2070&auto=format&fit=crop' },
-    { id: 10, name: 'Pasta Carbonara', description: 'Spaghetti with creamy sauce, bacon and parmesan', price: '₹14.99', image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=1771&auto=format&fit=crop' },
-    { id: 11, name: 'Grilled Salmon', description: 'Fresh salmon with seasonal vegetables', price: '₹17.99', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2070&auto=format&fit=crop' },
-    { id: 12, name: 'Mushroom Risotto', description: 'Creamy Italian rice with assorted mushrooms and parmesan', price: '₹15.99', image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=1770&auto=format&fit=crop' },
+  Momo : [
+    { id: 9, name: 'Steamed Chicken Momo(6pcs)', description: 'Hot & Juicy Chicken Delight', price: '₹80', image: '/Items/Nepalese-Momo.webp' },
+    { id: 10, name: 'Steamed Pork Momo(6pcs)', description: 'Smoky & Succulent Himalayan Bites', price: '₹80', image: '/Items/Veg_momo.webp' },
   ],
-  desserts: [
-    { id: 13, name: 'Chocolate Cake', description: 'Rich chocolate cake with ganache', price: '₹7.99', image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1887&auto=format&fit=crop' },
-    { id: 14, name: 'Cheesecake', description: 'Classic New York style cheesecake', price: '₹6.99', image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=2070&auto=format&fit=crop' },
-    { id: 15, name: 'Apple Pie', description: 'Warm apple pie with vanilla ice cream', price: '₹6.49', image: 'https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?q=80&w=1936&auto=format&fit=crop' },
-    { id: 16, name: 'Ice Cream Sundae', description: 'Three scoops with toppings of your choice', price: '₹5.99', image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=1827&auto=format&fit=crop' },
-  ],
-  drinks: [
-    { id: 17, name: 'Fresh Orange Juice', description: 'Freshly squeezed orange juice', price: '₹4.99', image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=1974&auto=format&fit=crop' },
-    { id: 18, name: 'Cappuccino', description: 'Espresso with steamed milk and foam', price: '₹3.99', image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=1887&auto=format&fit=crop' },
-    { id: 19, name: 'Iced Tea', description: 'Homemade iced tea with optional lemon', price: '₹3.49', image: 'https://images.unsplash.com/photo-1499638673689-79a0b5115d87?q=80&w=1964&auto=format&fit=crop' },
-    { id: 20, name: 'Smoothie', description: 'Blend of seasonal fruits and yogurt', price: '₹5.99', image: 'https://images.unsplash.com/photo-1502741224143-90386d7f8c82?q=80&w=2069&auto=format&fit=crop' },
+
+IceCream: [
+  { id: 13, name: 'Chocolate Almond Magnum', description: 'Premium chocolate-coated ice cream with roasted almonds', price: '₹90', image: '/IceCream/1.png' },
+  { id: 14, name: 'Chocolate Truffle', description: 'Rich truffle-flavored ice cream with a gooey chocolate center', price: '₹80', image: '/IceCream/2.png' },
+  { id: 15, name: 'Chocolate Brownie', description: 'Fudgy brownie chunks with chocolate ice cream and syrup', price: '₹80', image: '/IceCream/3.png' },
+  { id: 16, name: 'Magnum Classic Chocolate', description: 'Creamy vanilla ice cream coated with classic Belgian chocolate', price: '₹70', image: '/IceCream/4.png' },
+  { id: 17, name: 'Magnum Cone', description: 'Crispy cone filled with chocolate-dipped creamy vanilla ice cream', price: '₹100', image: '/IceCream/5.jpg' },
+  { id: 18, name: 'Magnum Mini', description: 'Miniature version of Magnum ice cream, perfect for small bites', price: '₹50', image: '/IceCream/6.jpg' },
+  { id: 19, name: 'Pistachio Magnum', description: 'Velvety pistachio ice cream wrapped in smooth chocolate', price: '₹90', image: '/IceCream/7.jpg' },
+  { id: 20, name: 'Cornetto Double Chocolate', description: 'Double-layered chocolate ice cream in a crunchy cone', price: '₹40', image: '/IceCream/8.jpg' },
+  { id: 21, name: 'Cornetto Choco Vanilla', description: 'Perfect blend of chocolate and vanilla swirls in a cone', price: '₹30', image: '/IceCream/9.jpg' },
+  { id: 22, name: 'Cornetto Butter Scotch', description: 'Butterscotch flavored ice cream with crunchy praline', price: '₹45', image: '/IceCream/10.jpg' },
+  { id: 23, name: 'Cornetto Oreo', description: 'Vanilla ice cream with Oreo chunks in a cone', price: '₹70', image: '/IceCream/11.jpg' },
+  { id: 24, name: 'Cornetto Strawberry Vanilla', description: 'Refreshing strawberry and vanilla combo in a cone', price: '₹40', image: '/IceCream/12.jpg' },
+  { id: 25, name: 'Aamras Ice Cream', description: 'Traditional Indian mango pulp ice cream with creamy texture', price: '₹40', image: '/IceCream/13.jpg' },
+  { id: 26, name: 'Feast Chuski - Orange Mahabar', description: 'Tangy orange flavored frozen stick for a refreshing bite', price: '₹10', image: '/IceCream/14.jpg' },
+  { id: 27, name: 'Feast Chuski - Aam Panna', description: 'Sour-sweet green mango flavored frozen delight', price: '₹10', image: '/IceCream/14.jpg' },
+  { id: 28, name: 'Feast Chuski - Masala Cola', description: 'Classic cola chuski infused with Indian masala twist', price: '₹10', image: '/IceCream/14.jpg' },
+  { id: 29, name: 'Kulfeez - Dry Rabri Kulfi', description: 'Traditional kulfi enriched with dry fruits and rabri', price: '₹35', image: '/IceCream/15.jpg' },
+  { id: 30, name: 'Kulfeez - Rajwadi', description: 'Royal kulfi with saffron, pista, and cardamom flavor', price: '₹10', image: '/IceCream/15.jpg' },
+  { id: 31, name: 'Kulfeez - Shahi Kulfi', description: 'Shahi-style kulfi with creamy texture and nuts', price: '₹20', image: '/IceCream/15.jpg' },
+  { id: 32, name: 'Mini Chocobar', description: 'Mini chocolate coated ice cream bar', price: '₹10', image: '/IceCream/16.jpg' },
+  { id: 33, name: 'Chocobar', description: 'Classic creamy vanilla ice cream bar dipped in chocolate', price: '₹20', image: '/IceCream/16.jpg' },
+  { id: 34, name: 'Cadbury Crackle', description: 'Chocolate ice cream bar with crispy crackle bits', price: '₹70', image: '/IceCream/17.jpg' },
+  { id: 35, name: 'Black Forest', description: 'Chocolate and cherry ice cream inspired by Black Forest cake', price: '₹50', image: '/IceCream/18.jpg' },
+  { id: 36, name: 'Chocolate', description: 'Classic rich chocolate ice cream scoop', price: '₹40', image: '/IceCream/26.jpg' },
+  { id: 37, name: 'Twisters - Mango Strawberry', description: 'Swirled mango and strawberry flavored ice cream stick', price: '₹20', image: '/IceCream/19.jpg' },
+  { id: 38, name: 'Twisters - Pineapple Strawberry', description: 'Refreshing pineapple and strawberry ice cream stick', price: '₹20', image: '/IceCream/19.jpg' },
+  { id: 39, name: 'American Nuts', description: 'Nutty ice cream with almonds, cashews, and pista', price: '₹40', image: '/IceCream/20.jpg' },
+  { id: 40, name: 'Trixy', description: 'Fun mix of fruity ice cream layers with a chocolate core', price: '₹70', image: '/IceCream/25.jpg' },
+  { id: 41, name: 'Strawberry Sundae', description: 'Creamy strawberry sundae topped with syrup and sprinkles', price: '₹50', image: '/IceCream/21.jpg' },
+  { id: 42, name: 'Choco-Tastic Sundae', description: 'Decadent sundae with chocolate ice cream and toppings', price: '₹40', image: '/IceCream/21.jpg' },
+  { id: 43, name: 'Classix - Vanilla', description: 'Classic vanilla flavored ice cream scoop', price: '₹20', image: '/IceCream/22.jpg' },
+  { id: 44, name: 'Classix - Strawberry Two in One', description: 'Vanilla and strawberry combo ice cream scoop', price: '₹20', image: '/IceCream/22.jpg' },
+  { id: 45, name: 'Choco Vanilla Sandwich', description: 'Ice cream sandwich with chocolate and vanilla layers', price: '₹35', image: '/IceCream/23.jpg' },
+  { id: 46, name: 'Cassata', description: 'Classic Indian layered ice cream with tutti frutti and nuts', price: '₹70', image: '/IceCream/24.jpg' }
+],
+
+  Drinks : [
+    { id: 17, name: 'Tea 200ml', description: 'Soothing. Strong. Simply Assam. (or “Chai with a Punch!', price: '₹40', image: '/Items/tea.jpg' },
+    { id: 18, name: 'Coffee 200ml', description: 'Fresh Brew. Real Buzz.', price: '₹60', image: '/Items/coffee.jpg' },
+    { id: 18, name: 'Water Bottle 500 ml', description: 'Fresh Brew. Real Buzz.', price: '₹10', image: '/IceCream/27.jpg' },
+    { id: 18, name: 'Water Bottle 1000 ml', description: 'Fresh Brew. Real Buzz.', price: '₹20', image: '/IceCream/27.jpg' },
   ],
 };
 
 const FoodCategory = () => {
-  const [activeTab, setActiveTab] = useState('breakfast');
+  const [activeTab, setActiveTab] = useState('Rolls');
 
   return (
     <section id="menu" className="relative bg-[url(/lovable-uploads/lol2.png)] bg-contain overflow-hidden">
@@ -67,11 +96,11 @@ const FoodCategory = () => {
             Our <span className="text-rtc-red">Delicious</span> Menu
           </h2>
           <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            From breakfast to dinner and everything in between, our menu offers a wide variety of options to satisfy your cravings any time of day.
+            From rolls to momos and everything in between, our menu offers a wide variety of options to satisfy your cravings any time of day.
           </p>
         </div>
 
-        <Tabs defaultValue="breakfast" className="w-full" onValueChange={setActiveTab}>
+        <Tabs defaultValue="Rolls" className="w-full" onValueChange={setActiveTab}>
           <TabsList className="flex flex-wrap justify-center gap-2 lg;mb-8 mb-24 max-w-max m-auto">
             {menuCategories.map(category => (
               <TabsTrigger 

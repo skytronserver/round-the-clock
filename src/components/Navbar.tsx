@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className="container w-full mx-auto px-4 flex justify-between items-center">
         <a href="#" className="flex items-center gap-2">
           <img 
-            src="/lovable-uploads/Round the Clock Logo Coloured no BG_170425 (2).svg" 
+            src="/lovable-uploads/Round the Clock Logo.png" 
             alt="Round The Clock Logo" 
             className={`h-20 transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90'}`}
           />
