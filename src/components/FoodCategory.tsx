@@ -25,8 +25,8 @@ const menuItems = {
     { id: 7, name: 'Veg Chow', description: 'Wok-Tossed Goodness, Garden Fresh', price: '₹120', image: '/Items/Veg Chow.jpg' },
   ],
   Momo : [
-    { id: 9, name: 'Steamed Chicken Momo(6pcs)', description: 'Hot & Juicy Chicken Delight', price: '₹80', image: '/Items/Nepalese-Momo.webp' },
-    { id: 10, name: 'Steamed Pork Momo(6pcs)', description: 'Smoky & Succulent Himalayan Bites', price: '₹80', image: '/Items/Veg_momo.webp' },
+    { id: 9, name: 'Steamed Chicken Momo(6pcs)', description: 'Hot & Juicy Chicken Delight', price: '₹80', image:'/Items/Veg_momo.webp'},
+    { id: 10, name: 'Steamed Pork Momo(6pcs)', description: 'Smoky & Succulent Himalayan Bites', price: '₹80', image:  '/Items/Nepalese-Momo.webp'},
   ],
 
 IceCream: [
