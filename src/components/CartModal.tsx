@@ -29,7 +29,8 @@ const CartModal = () => {
     clearCart, 
     closeCart, 
     setCustomerInfo, 
-    getTotalPrice 
+    getTotalPrice,
+    getTotalItems 
   } = useCart();
   
   const { saveOrder } = useOrders();
@@ -893,7 +894,7 @@ const CartModal = () => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <ShoppingCart className="h-5 w-5" />
-              Your Order ({state.items.length} items)
+              Your Order ({getTotalItems()} items)
             </DialogTitle>
           </DialogHeader>
 
