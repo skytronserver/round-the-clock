@@ -107,7 +107,7 @@ const FoodCategory = () => {
         </div>
 
         <Tabs defaultValue="Rolls" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-8 md:mb-12 lg:mb-16 max-w-full sm:max-w-4xl mx-auto p-2 sm:p-4">
+          <TabsList className="flex overflow-x-auto justify-start sm:justify-center gap-2 sm:gap-3 md:gap-4 mb-8 md:mb-12 lg:mb-16 max-w-full sm:max-w-4xl mx-auto p-2 sm:p-4 scrollbar-hide">
             {menuCategories.map(category => (
               <TabsTrigger 
                 key={category.id}
