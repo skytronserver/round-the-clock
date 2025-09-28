@@ -69,6 +69,98 @@ const Hero = () => {
       image: '/IceCream/11.jpg',
       showButton: false
     },
+    // 🍜 Veg Chow (full screen)
+    {
+      type: 'menu',
+      title: 'Veg Chow',
+      subtitle: 'Wok-Tossed Goodness, Garden Fresh',
+      price: '₹120',
+      image: '/Items/Veg Chow.jpg',
+      showButton: false
+    },
+    // ☕ Coffee (full screen)
+    {
+      type: 'menu',
+      title: 'Coffee 200ml',
+      subtitle: 'Fresh Brew. Real Buzz.',
+      price: '₹60',
+      image: '/Items/coffee.jpg',
+      showButton: false
+    },
+    // 🌯 Special Chicken Roll (full screen)
+    {
+      type: 'menu',
+      title: 'Special Chicken Roll',
+      subtitle: 'Double Loaded! Egg + Chicken Indulgence',
+      price: '₹155',
+      image: '/Items/ChickenEggRoll.jpg',
+      showButton: false
+    },
+    // 🥟 Steamed Pork Momo (full screen)
+    {
+      type: 'menu',
+      title: 'Steamed Pork Momo',
+      subtitle: 'Smoky & Succulent Himalayan Bites (6pcs)',
+      price: '₹80',
+      image: '/Items/Veg_momo.webp',
+      showButton: false
+    },
+    // 🌯 Egg Roll (full screen)
+    {
+      type: 'menu',
+      title: 'Egg Roll',
+      subtitle: 'Scrambled eggs, sausage, cheese and salsa wrapped in a tortilla',
+      price: '₹90',
+      image: '/Items/Egg roll.jpg',
+      showButton: false
+    },
+    // 🍜 Egg Chow (full screen)
+    {
+      type: 'menu',
+      title: 'Egg Chow',
+      subtitle: 'Egg-Citing Taste, Every Bite!',
+      price: '₹130',
+      image: '/Items/Egg Chow.jpg',
+      showButton: false
+    },
+    // 🍵 Tea (full screen)
+    {
+      type: 'menu',
+      title: 'Tea 200ml',
+      subtitle: 'Soothing. Strong. Simply Assam. (or "Chai with a Punch!")',
+      price: '₹40',
+      image: '/Items/tea.jpg',
+      showButton: false
+    },
+    
+    // // 💧 Water Bottle 500ml (full screen)
+    // {
+    //   type: 'menu',
+    //   title: 'Water Bottle 500ml',
+    //   subtitle: 'Fresh & Pure Hydration',
+    //   price: '₹10',
+    //   image: '/IceCream/27.jpg',
+    //   showButton: false
+    // },
+    // // 💧 Water Bottle 1000ml (full screen)
+    // {
+    //   type: 'menu',
+    //   title: 'Water Bottle 1000ml',
+    //   subtitle: 'Fresh & Pure Hydration - Large Size',
+    //   price: '₹20',
+    //   image: '/IceCream/27.jpg',
+    //   showButton: false
+    // },
+
+    // 🍦 Chocolate Truffle (full screen) - 4th ice cream
+    {
+      type: 'menu',
+      title: 'Chocolate Truffle',
+      subtitle: 'Rich truffle-flavored ice cream with a gooey chocolate center',
+      price: '₹80',
+      image: '/IceCream/2.png',
+      showButton: false
+    },
   
   ];
 

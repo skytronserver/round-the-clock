@@ -28,7 +28,7 @@ const ContactSection = () => {
               <Phone className="text-rtc-red mt-1 flex-shrink-0" size={20} />
               <div>
                 <h4 className="font-medium">Phone</h4>
-                <p className="text-gray-600">(555) 123-4567</p>
+                <p className="text-gray-600">7576004477</p>
               </div>
             </div>
             

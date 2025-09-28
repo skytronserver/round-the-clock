@@ -119,7 +119,7 @@ const CartModal = () => {
       <div style="width: 100%; font-family: monospace; font-size: 12px; line-height: 1.4; margin: 0; padding: 0; box-sizing: border-box;">
         <div style="text-align: center; margin-bottom: 10px;">
           <img src="/lovable-uploads/LOKO.png" alt="Round The Clock Logo" style="height: 60px; width: auto; margin: 0 auto 5px auto; display: block;" />
-          <p style="margin: 0; font-size: 10px;">Tel: +1-234-567-8900</p>
+          <p style="margin: 0; font-size: 10px;">Tel: 7576004477</p>
         </div>
         
         <div style="text-align: center; margin: 5px 0;">
@@ -441,7 +441,7 @@ const CartModal = () => {
         printData += logoData + LF;
         printData += ESC + 'a' + '\x01'; // Center alignment
         printData += 'ROUND THE CLOCK' + LF;
-        printData += 'Tel: +91-234-567-8900' + LF;
+        printData += 'Tel: 7576004477' + LF;
         printData += LF;
       } else {
         console.log('Logo conversion returned empty or small data, using enhanced text header');
@@ -453,7 +453,7 @@ const CartModal = () => {
         printData += '||     Delicious Food 24/7    ||' + LF;
         printData += '||                            ||' + LF;
         printData += '================================' + LF;
-        printData += 'Tel: +91-234-567-8900' + LF;
+        printData += 'Tel: 7576004477' + LF;
         printData += LF;
       }
     } catch (error) {
@@ -466,7 +466,7 @@ const CartModal = () => {
       printData += '||     Delicious Food 24/7    ||' + LF;
       printData += '||                            ||' + LF;
       printData += '================================' + LF;
-      printData += 'Tel: +91-234-567-8900' + LF;
+      printData += 'Tel: 7576004477' + LF;
       printData += LF;
     }
     

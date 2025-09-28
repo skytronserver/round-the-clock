@@ -58,25 +58,31 @@ IceCream: [
   { id: 38, name: 'Twisters - Pineapple Strawberry', description: 'Refreshing pineapple and strawberry ice cream stick', price: '₹20', image: '/IceCream/19.jpg' },
   { id: 39, name: 'American Nuts', description: 'Nutty ice cream with almonds, cashews, and pista', price: '₹40', image: '/IceCream/20.jpg' },
   { id: 40, name: 'Trixy', description: 'Fun mix of fruity ice cream layers with a chocolate core', price: '₹70', image: '/IceCream/25.jpg' },
-  { id: 41, name: 'Strawberry Sundae', description: 'Creamy strawberry sundae topped with syrup and sprinkles', price: '₹50', image: '/IceCream/21.jpg' },
+  { id: 41, name: 'Strawberry Sundae', description: 'Creamy strawberry sundae topped with syrup and sprinkles', price: '₹40', image: '/IceCream/21.jpg' },
   { id: 42, name: 'Choco-Tastic Sundae', description: 'Decadent sundae with chocolate ice cream and toppings', price: '₹40', image: '/IceCream/21.jpg' },
   { id: 43, name: 'Classix - Vanilla', description: 'Classic vanilla flavored ice cream scoop', price: '₹20', image: '/IceCream/22.jpg' },
-  { id: 44, name: 'Classix - Strawberry Two in One', description: 'Vanilla and strawberry combo ice cream scoop', price: '₹20', image: '/IceCream/22.jpg' },
   { id: 45, name: 'Choco Vanilla Sandwich', description: 'Ice cream sandwich with chocolate and vanilla layers', price: '₹35', image: '/IceCream/23.jpg' },
-  { id: 46, name: 'Cassata', description: 'Classic Indian layered ice cream with tutti frutti and nuts', price: '₹70', image: '/IceCream/24.jpg' }
+  { id: 46, name: 'Cassata', description: 'Classic Indian layered ice cream with tutti frutti and nuts', price: '₹70', image: '/IceCream/24.jpg' },
+
+  { id: 47, name: 'Double Chocolate Chocochip', description: 'Rich double chocolate ice cream packed with crunchy chocochips', price: '₹50', image: '/IceCream/28.jpg' },
+  { id: 48, name: 'Dry Fruit Delight', description: 'Creamy ice cream loaded with cashews, almonds, pistachios, and raisins', price: '₹50', image: '/IceCream/28.jpg' },
+  { id: 49, name: 'Choco Brownie Fudge', description: 'Decadent chocolate ice cream blended with chewy brownie chunks and fudge', price: '₹50', image: '/IceCream/28.jpg' },
+  { id: 50, name: 'Desi Kulfi', description: 'Traditional Indian kulfi with a creamy texture and authentic flavors', price: '₹60', image: '/IceCream/29.jpg' },
+  { id: 51, name: 'Oreo and Cream Frozen Dessert Tub', description: 'Creamy frozen dessert swirled with crunchy Oreo cookie pieces', price: '₹60', image: '/IceCream/30.jpg' },
+  { id: 52, name: 'Choco Brownie', description: 'Classic chocolate ice cream mixed with soft brownie bites', price: '₹60', image: '/IceCream/31.jpg' },
+
 ],
 
   Drinks : [
-    { id: 17, name: 'Tea 200ml', description: 'Soothing. Strong. Simply Assam. (or “Chai with a Punch!', price: '₹40', image: '/Items/tea.jpg' },
-    { id: 18, name: 'Coffee 200ml', description: 'Fresh Brew. Real Buzz.', price: '₹60', image: '/Items/coffee.jpg' },
-    { id: 18, name: 'Water Bottle 500 ml', description: 'Fresh Brew. Real Buzz.', price: '₹10', image: '/IceCream/27.jpg' },
-    { id: 18, name: 'Water Bottle 1000 ml', description: 'Fresh Brew. Real Buzz.', price: '₹20', image: '/IceCream/27.jpg' },
+    { id: 47, name: 'Tea 200ml', description: 'Soothing. Strong. Simply Assam. (or "Chai with a Punch!', price: '₹40', image: '/Items/tea.jpg' },
+    { id: 48, name: 'Coffee 200ml', description: 'Fresh Brew. Real Buzz.', price: '₹60', image: '/Items/coffee.jpg' },
+    { id: 49, name: 'Water Bottle 500 ml', description: 'Fresh & Pure Hydration', price: '₹10', image: '/IceCream/27.jpg' },
+    { id: 50, name: 'Water Bottle 1000 ml', description: 'Fresh & Pure Hydration - Large Size', price: '₹20', image: '/IceCream/27.jpg' },
   ],
 };
 
 const FoodCategory = () => {
   const [activeTab, setActiveTab] = useState('Rolls');
-
   return (
     <section id="menu" className="relative bg-[url(/lovable-uploads/lol2.png)] bg-contain overflow-hidden">
       {/* Background Pattern */}
@@ -101,12 +107,12 @@ const FoodCategory = () => {
         </div>
 
         <Tabs defaultValue="Rolls" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="flex flex-wrap justify-center gap-2 lg;mb-8 mb-24 max-w-max m-auto">
+          <TabsList className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-8 md:mb-12 lg:mb-16 max-w-full sm:max-w-4xl mx-auto p-2 sm:p-4">
             {menuCategories.map(category => (
               <TabsTrigger 
                 key={category.id}
                 value={category.id}
-                className={`rounded-full px-6 py-2 font-medium transition-all duration-300
+                className={`rounded-full px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 font-medium text-xs sm:text-sm md:text-base transition-all duration-300 whitespace-nowrap
                 ${activeTab === category.id ? 'bg-rtc-red text-white shadow-md' : 'bg-gray-100 hover:bg-gray-200'}`}
               >
                 {category.name}
