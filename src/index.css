@@ -66,4 +66,19 @@
   .food-card {
     @apply bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300;
   }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .menu-card-enhanced {
+    @apply bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-rtc-red/40;
+  }
+
+  .menu-card-enhanced:hover {
+    transform: translateY(-2px);
+  }
 }

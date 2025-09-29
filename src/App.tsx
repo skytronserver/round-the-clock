@@ -7,6 +7,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { OrderProvider } from "@/contexts/OrderContext";
 import { FeedbackProvider } from "@/contexts/FeedbackContext";
 import Index from "./pages/Index";
+import Menu from "./pages/Menu";
 import Reports from "./pages/Reports";
 import Feedback from "./pages/Feedback";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/menu" element={<Menu />} />
                 <Route path="/reports" element={
                   <ProtectedRoute>
                     <Reports />

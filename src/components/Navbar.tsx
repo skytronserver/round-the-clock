@@ -29,7 +29,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container w-full mx-auto px-4 flex justify-between items-center">
-        <a href="#" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-2">
           <img 
             src="/lovable-uploads/Round the Clock Logo.png" 
             alt="Round The Clock Logo" 
@@ -39,7 +39,21 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
-          {['Home', 'Menu', 'Specials', 'About', 'Contact'].map((item) => (
+          <a
+            href="/"
+            className={`text-rtc-cream hover:text-white
+            font-medium transition-colors duration-300 text-sm`}
+          >
+            Home
+          </a>
+          <Link
+            to="/menu"
+            className={`text-rtc-cream hover:text-white
+            font-medium transition-colors duration-300 text-sm`}
+          >
+            Menu
+          </Link>
+          {['Specials', 'About', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -166,7 +180,21 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       {isOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full shadow-lg py-4 px-4">
-          {['Home', 'Menu', 'Specials', 'About', 'Contact'].map((item) => (
+          <a
+            href="#home"
+            onClick={() => setIsOpen(false)}
+            className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100"
+          >
+            Home
+          </a>
+          <Link
+            to="/menu"
+            onClick={() => setIsOpen(false)}
+            className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100"
+          >
+            Menu
+          </Link>
+          {['Specials', 'About', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -177,13 +205,13 @@ const Navbar = () => {
             </a>
           ))}
           <Link to="/reports" onClick={() => setIsOpen(false)}>
-            <div className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100 flex items-center gap-2">
+            <div className="flex items-center gap-2 py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100">
               <BarChart3 size={18} />
               Reports
             </div>
           </Link>
           <Link to="/feedback" onClick={() => setIsOpen(false)}>
-            <div className="block py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100 flex items-center gap-2">
+            <div className="flex items-center gap-2 py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100">
               <MessageSquare size={18} />
               Feedback
             </div>
