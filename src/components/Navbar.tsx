@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Clock, ShoppingCart, BarChart3, MessageSquare } from 'lucide-react';
+import { Menu, X, Clock, ShoppingCart, MessageSquare, Settings } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { Link } from 'react-router-dom';
 
@@ -79,18 +79,6 @@ const Navbar = () => {
               </span>
             )}
           </button>
-          <Link to="/reports">
-            <button
-              className={`${
-                scrolled
-                  ? 'bg-rtc-red text-white'
-                  : 'bg-rtc-cream text-rtc-dark'
-              } px-3 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 text-sm`}
-            >
-              <BarChart3 size={16} />
-              <span className="hidden xl:inline">Reports</span>
-            </button>
-          </Link>
           <Link to="/feedback">
             <button
               className={`${
@@ -101,6 +89,18 @@ const Navbar = () => {
             >
               <MessageSquare size={16} />
               <span className="hidden xl:inline">Feedback</span>
+            </button>
+          </Link>
+          <Link to="/mis">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } px-3 py-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90 flex items-center gap-2 text-sm`}
+            >
+              <Settings size={16} />
+              <span className="hidden xl:inline">MIS</span>
             </button>
           </Link>
         </div>
@@ -123,18 +123,6 @@ const Navbar = () => {
               </span>
             )}
           </button>
-          <Link to="/reports">
-            <button
-              className={`${
-                scrolled
-                  ? 'bg-rtc-red text-white'
-                  : 'bg-rtc-cream text-rtc-dark'
-              } p-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90`}
-              title="Reports"
-            >
-              <BarChart3 size={20} />
-            </button>
-          </Link>
           <Link to="/feedback">
             <button
               className={`${
@@ -145,6 +133,18 @@ const Navbar = () => {
               title="Feedback"
             >
               <MessageSquare size={20} />
+            </button>
+          </Link>
+          <Link to="/mis">
+            <button
+              className={`${
+                scrolled
+                  ? 'bg-rtc-red text-white'
+                  : 'bg-rtc-cream text-rtc-dark'
+              } p-2 rounded-full font-bold transition-colors duration-300 hover:opacity-90`}
+              title="MIS"
+            >
+              <Settings size={20} />
             </button>
           </Link>
         </div>
@@ -204,16 +204,16 @@ const Navbar = () => {
               {item}
             </a>
           ))}
-          <Link to="/reports" onClick={() => setIsOpen(false)}>
-            <div className="flex items-center gap-2 py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100">
-              <BarChart3 size={18} />
-              Reports
-            </div>
-          </Link>
           <Link to="/feedback" onClick={() => setIsOpen(false)}>
             <div className="flex items-center gap-2 py-3 text-rtc-dark hover:text-rtc-red font-medium border-b border-gray-100">
               <MessageSquare size={18} />
               Feedback
+            </div>
+          </Link>
+          <Link to="/mis" onClick={() => setIsOpen(false)}>
+            <div className="flex items-center gap-2 py-3 text-rtc-dark hover:text-rtc-red font-medium">
+              <Settings size={18} />
+              MIS
             </div>
           </Link>
         </div>
