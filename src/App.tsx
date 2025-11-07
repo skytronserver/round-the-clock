@@ -17,6 +17,25 @@ import RawIngredients from "./pages/settings/RawIngredients";
 import ReadyToSale from "./pages/settings/ReadyToSale";
 import FreshlyPrepared from "./pages/settings/FreshlyPrepared";
 import Purchase from "./pages/Purchase";
+import CompanyPurchase from "./pages/purchase/CompanyPurchase";
+import OutletPurchase from "./pages/purchase/OutletPurchase";
+import PurchaseApproval from "./pages/purchase/PurchaseApproval";
+import Inward from "./pages/Inward";
+import Inventory from "./pages/Inventory";
+import CompanyInventory from "./pages/inventory/CompanyInventory";
+import RawIngredientsInventory from "./pages/inventory/RawIngredientsInventory";
+import ItemMixInventory from "./pages/inventory/ItemMixInventory";
+import CompleteItemsInventory from "./pages/inventory/CompleteItemsInventory";
+import ReadyMadeInventory from "./pages/inventory/ReadyMadeInventory";
+import OutletInventory from "./pages/inventory/OutletInventory";
+import Sale from "./pages/Sale";
+import Billing from "./pages/Billing";
+import Return from "./pages/Return";
+import Wastage from "./pages/Wastage";
+import FreshlyPreparedItems from "./pages/FreshlyPreparedItems";
+import OutletPreparation from "./pages/OutletPreparation";
+import Check from "./pages/Check";
+import Dispatch from "./pages/Dispatch";
 import Report from "./pages/Report";
 import Promotion from "./pages/Promotion";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -66,9 +85,105 @@ const App = () => (
                     <FreshlyPrepared />
                   </ProtectedRoute>
                 } />
+                <Route path="/mis/purchase/company" element={
+                  <ProtectedRoute>
+                    <CompanyPurchase />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/purchase/outlet" element={
+                  <ProtectedRoute>
+                    <OutletPurchase />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/purchase/approval" element={
+                  <ProtectedRoute>
+                    <PurchaseApproval />
+                  </ProtectedRoute>
+                } />
                 <Route path="/mis/purchase" element={
                   <ProtectedRoute>
                     <Purchase />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/inward" element={
+                  <ProtectedRoute>
+                    <Inward />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/inventory/company/raw-ingredients" element={
+                  <ProtectedRoute>
+                    <RawIngredientsInventory />
+                  </ProtectedRoute>
+                } />
+                  <Route path="/mis/inventory/company/ready-made" element={
+                  <ProtectedRoute>
+                    <ReadyMadeInventory />
+                  </ProtectedRoute>
+                } />
+                {/* <Route path="/mis/inventory/company/item-mix" element={
+                  <ProtectedRoute>
+                    <ItemMixInventory />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/inventory/company/complete-items" element={
+                  <ProtectedRoute>
+                    <CompleteItemsInventory />
+                  </ProtectedRoute>
+                } /> */}
+              
+                <Route path="/mis/inventory/company" element={
+                  <ProtectedRoute>
+                    <CompanyInventory />
+                  </ProtectedRoute>
+                } />
+                {/* <Route path="/mis/inventory/outlet" element={
+                  <ProtectedRoute>
+                    <OutletInventory />
+                  </ProtectedRoute>
+                } />  */}
+                <Route path="/mis/inventory" element={
+                  <ProtectedRoute>
+                    <Inventory />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/sale" element={
+                  <ProtectedRoute>
+                    <Sale />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/billing" element={
+                  <ProtectedRoute>
+                    <Billing />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/return" element={
+                  <ProtectedRoute>
+                    <Return />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/wastage" element={
+                  <ProtectedRoute>
+                    <Wastage />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/freshly-prepared" element={
+                  <ProtectedRoute>
+                    <FreshlyPreparedItems />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/outlet-preparation" element={
+                  <ProtectedRoute>
+                    <OutletPreparation />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/check" element={
+                  <ProtectedRoute>
+                    <Check />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/dispatch" element={
+                  <ProtectedRoute>
+                    <Dispatch />
                   </ProtectedRoute>
                 } />
                 <Route path="/mis/report" element={

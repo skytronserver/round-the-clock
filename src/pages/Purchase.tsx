@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Building2, Store } from 'lucide-react';
+import { ArrowLeft, Building2, Store, CheckCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
 const Purchase = () => {
@@ -21,7 +21,7 @@ const Purchase = () => {
           Manage company and outlet purchases
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Company Purchase */}
           <Link to="/mis/purchase/company">
             <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-l-4 border-blue-500">
@@ -49,7 +49,24 @@ const Purchase = () => {
                 <div>
                   <h2 className="text-xl font-bold text-gray-800 mb-2">Outlet Purchase</h2>
                   <p className="text-gray-600 text-sm">
-                    Manage individual outlet purchases
+                    Manage individual outlet purchases (requires approval)
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Purchase Approval */}
+          <Link to="/mis/purchase/approval">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-l-4 border-purple-500">
+              <div className="flex items-start gap-4">
+                <div className="bg-purple-100 p-3 rounded-lg">
+                  <CheckCircle className="w-8 h-8 text-purple-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">Purchase Approval</h2>
+                  <p className="text-gray-600 text-sm">
+                    Review and approve outlet purchase requests
                   </p>
                 </div>
               </div>
