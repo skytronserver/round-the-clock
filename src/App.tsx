@@ -120,7 +120,7 @@ const App = () => (
                     <ReadyMadeInventory />
                   </ProtectedRoute>
                 } />
-                {/* <Route path="/mis/inventory/company/item-mix" element={
+                <Route path="/mis/inventory/company/item-mix" element={
                   <ProtectedRoute>
                     <ItemMixInventory />
                   </ProtectedRoute>
@@ -129,7 +129,7 @@ const App = () => (
                   <ProtectedRoute>
                     <CompleteItemsInventory />
                   </ProtectedRoute>
-                } /> */}
+                } />
               
                 <Route path="/mis/inventory/company" element={
                   <ProtectedRoute>
