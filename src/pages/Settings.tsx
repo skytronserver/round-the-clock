@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Store, Carrot, UtensilsCrossed, ChefHat } from 'lucide-react';
+import { ArrowLeft, Store, Carrot, UtensilsCrossed, ChefHat, Blend } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
 const Settings = () => {
@@ -64,9 +64,9 @@ const Settings = () => {
                   <UtensilsCrossed className="w-8 h-8 text-purple-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800 mb-2">Set/Create Ready to Sale Item</h2>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">Set Ready to Sale Item</h2>
                   <p className="text-gray-600 text-sm">
-                    Configure ready-to-sale products
+                    Configure purchased items for sale
                   </p>
                 </div>
               </div>
@@ -84,6 +84,23 @@ const Settings = () => {
                   <h2 className="text-xl font-bold text-gray-800 mb-2">Set/Create Freshly Prepared Dishes</h2>
                   <p className="text-gray-600 text-sm">
                     Manage freshly prepared menu items
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Set/Create Item Mix */}
+          <Link to="/mis/settings/item-mix">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-l-4 border-indigo-500">
+              <div className="flex items-start gap-4">
+                <div className="bg-indigo-100 p-3 rounded-lg">
+                  <Blend className="w-8 h-8 text-indigo-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">Set/Create Item Mix</h2>
+                  <p className="text-gray-600 text-sm">
+                    Configure ready-to-use ingredient mixes
                   </p>
                 </div>
               </div>

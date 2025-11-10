@@ -18,6 +18,46 @@ interface PurchaseItem {
   totalPrice: string;
 }
 
+// Available Raw Ingredients (configured in Settings)
+const availableRawIngredients = [
+  { name: 'Tomatoes', unit: 'kg', category: 'vegetables' },
+  { name: 'Onions', unit: 'kg', category: 'vegetables' },
+  { name: 'Potatoes', unit: 'kg', category: 'vegetables' },
+  { name: 'Rice', unit: 'kg', category: 'grains' },
+  { name: 'Chicken', unit: 'kg', category: 'meat' },
+  { name: 'Milk', unit: 'l', category: 'dairy' },
+  { name: 'Paneer', unit: 'kg', category: 'dairy' },
+  { name: 'Ginger', unit: 'kg', category: 'spices' },
+  { name: 'Garlic', unit: 'kg', category: 'spices' },
+  { name: 'Cooking Oil', unit: 'l', category: 'oils' },
+  { name: 'Salt', unit: 'kg', category: 'spices' },
+  { name: 'Sugar', unit: 'kg', category: 'others' },
+  { name: 'Flour', unit: 'kg', category: 'grains' },
+  { name: 'Spices Mix', unit: 'kg', category: 'spices' },
+  { name: 'Bell Peppers', unit: 'kg', category: 'vegetables' },
+  { name: 'Mushrooms', unit: 'kg', category: 'vegetables' },
+  { name: 'Cheese', unit: 'kg', category: 'dairy' },
+  { name: 'Yogurt', unit: 'kg', category: 'dairy' },
+  { name: 'Lemon', unit: 'kg', category: 'fruits' },
+  { name: 'Coriander', unit: 'kg', category: 'vegetables' },
+];
+
+// Available Ready-to-Sale Items (configured in Settings)
+const availableReadyToSaleItems = [
+  { name: 'Coca-Cola', unit: 'pcs', category: 'beverages' },
+  { name: 'Pepsi', unit: 'pcs', category: 'beverages' },
+  { name: 'Sprite', unit: 'pcs', category: 'beverages' },
+  { name: 'Mineral Water', unit: 'pcs', category: 'beverages' },
+  { name: 'Packaged Juices', unit: 'pcs', category: 'beverages' },
+  { name: 'Potato Chips', unit: 'pack', category: 'snacks' },
+  { name: 'Cookies', unit: 'pack', category: 'snacks' },
+  { name: 'Chocolate Bars', unit: 'pcs', category: 'snacks' },
+  { name: 'Ketchup Sachets', unit: 'pack', category: 'condiments' },
+  { name: 'Mayonnaise Sachets', unit: 'pack', category: 'condiments' },
+  { name: 'Frozen French Fries', unit: 'kg', category: 'frozen' },
+  { name: 'Ice Cream Cups', unit: 'pcs', category: 'frozen' },
+];
+
 const CompanyPurchase = () => {
   const { toast } = useToast();
   const [purchaseType, setPurchaseType] = useState<'ready-to-sale' | 'raw-ingredients' | ''>('');
@@ -30,6 +70,10 @@ const CompanyPurchase = () => {
   const [items, setItems] = useState<PurchaseItem[]>([
     { id: '1', itemName: '', quantity: '', unit: '', pricePerUnit: '', totalPrice: '0' }
   ]);
+
+  const getAvailableItems = () => {
+    return purchaseType === 'raw-ingredients' ? availableRawIngredients : availableReadyToSaleItems;
+  };
 
   const handleAddItem = () => {
     const newItem: PurchaseItem = {
@@ -53,6 +97,14 @@ const CompanyPurchase = () => {
     setItems(items.map(item => {
       if (item.id === id) {
         const updatedItem = { ...item, [field]: value };
+        
+        // Auto-populate unit when item is selected
+        if (field === 'itemName') {
+          const selectedItem = getAvailableItems().find(availableItem => availableItem.name === value);
+          if (selectedItem) {
+            updatedItem.unit = selectedItem.unit;
+          }
+        }
         
         // Calculate total price
         if (field === 'quantity' || field === 'pricePerUnit') {
@@ -217,14 +269,29 @@ const CompanyPurchase = () => {
                       <CardContent className="pt-6">
                         <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
                           <div className="md:col-span-2">
-                            <Label htmlFor={`itemName-${item.id}`}>Item Name *</Label>
-                            <Input
-                              id={`itemName-${item.id}`}
+                            <Label htmlFor={`itemName-${item.id}`}>
+                              {purchaseType === 'raw-ingredients' ? 'Raw Ingredient' : 'Ready-to-Sale Item'} *
+                            </Label>
+                            <Select
                               value={item.itemName}
-                              onChange={(e) => handleItemChange(item.id, 'itemName', e.target.value)}
-                              required
-                              placeholder="Enter item name"
-                            />
+                              onValueChange={(value) => handleItemChange(item.id, 'itemName', value)}
+                              disabled={!purchaseType}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder={
+                                  !purchaseType 
+                                    ? "Select purchase type first" 
+                                    : `Select ${purchaseType === 'raw-ingredients' ? 'ingredient' : 'item'}`
+                                } />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {getAvailableItems().map((availableItem) => (
+                                  <SelectItem key={availableItem.name} value={availableItem.name}>
+                                    {availableItem.name} ({availableItem.unit}) - {availableItem.category}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </div>
 
                           <div>
@@ -241,23 +308,14 @@ const CompanyPurchase = () => {
                           </div>
 
                           <div>
-                            <Label htmlFor={`unit-${item.id}`}>Unit *</Label>
-                            <Select
+                            <Label htmlFor={`unit-${item.id}`}>Unit</Label>
+                            <Input
+                              id={`unit-${item.id}`}
                               value={item.unit}
-                              onValueChange={(value) => handleItemChange(item.id, 'unit', value)}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Unit" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="kg">Kg</SelectItem>
-                                <SelectItem value="g">Gram</SelectItem>
-                                <SelectItem value="l">Liter</SelectItem>
-                                <SelectItem value="ml">ML</SelectItem>
-                                <SelectItem value="pcs">Pieces</SelectItem>
-                                <SelectItem value="pack">Pack</SelectItem>
-                              </SelectContent>
-                            </Select>
+                              disabled
+                              className="bg-gray-100"
+                              placeholder="Auto-filled"
+                            />
                           </div>
 
                           <div>

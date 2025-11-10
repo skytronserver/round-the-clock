@@ -16,6 +16,7 @@ import CreateOutlet from "./pages/settings/CreateOutlet";
 import RawIngredients from "./pages/settings/RawIngredients";
 import ReadyToSale from "./pages/settings/ReadyToSale";
 import FreshlyPrepared from "./pages/settings/FreshlyPrepared";
+import ItemMix from "./pages/settings/ItemMix";
 import Purchase from "./pages/Purchase";
 import CompanyPurchase from "./pages/purchase/CompanyPurchase";
 import OutletPurchase from "./pages/purchase/OutletPurchase";
@@ -83,6 +84,11 @@ const App = () => (
                 <Route path="/mis/settings/freshly-prepared" element={
                   <ProtectedRoute>
                     <FreshlyPrepared />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/settings/item-mix" element={
+                  <ProtectedRoute>
+                    <ItemMix />
                   </ProtectedRoute>
                 } />
                 <Route path="/mis/purchase/company" element={

@@ -19,6 +19,30 @@ interface PurchaseItem {
   totalPrice: string;
 }
 
+// Available Raw Ingredients for outlet purchase (configured in Settings)
+const availableRawIngredients = [
+  { name: 'Tomatoes', unit: 'kg', category: 'vegetables' },
+  { name: 'Onions', unit: 'kg', category: 'vegetables' },
+  { name: 'Potatoes', unit: 'kg', category: 'vegetables' },
+  { name: 'Rice', unit: 'kg', category: 'grains' },
+  { name: 'Chicken', unit: 'kg', category: 'meat' },
+  { name: 'Milk', unit: 'l', category: 'dairy' },
+  { name: 'Paneer', unit: 'kg', category: 'dairy' },
+  { name: 'Ginger', unit: 'kg', category: 'spices' },
+  { name: 'Garlic', unit: 'kg', category: 'spices' },
+  { name: 'Cooking Oil', unit: 'l', category: 'oils' },
+  { name: 'Salt', unit: 'kg', category: 'spices' },
+  { name: 'Sugar', unit: 'kg', category: 'others' },
+  { name: 'Flour', unit: 'kg', category: 'grains' },
+  { name: 'Spices Mix', unit: 'kg', category: 'spices' },
+  { name: 'Bell Peppers', unit: 'kg', category: 'vegetables' },
+  { name: 'Mushrooms', unit: 'kg', category: 'vegetables' },
+  { name: 'Cheese', unit: 'kg', category: 'dairy' },
+  { name: 'Yogurt', unit: 'kg', category: 'dairy' },
+  { name: 'Lemon', unit: 'kg', category: 'fruits' },
+  { name: 'Coriander', unit: 'kg', category: 'vegetables' },
+];
+
 const OutletPurchase = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -55,6 +79,14 @@ const OutletPurchase = () => {
     setItems(items.map(item => {
       if (item.id === id) {
         const updatedItem = { ...item, [field]: value };
+        
+        // Auto-populate unit when item is selected
+        if (field === 'itemName') {
+          const selectedItem = availableRawIngredients.find(availableItem => availableItem.name === value);
+          if (selectedItem) {
+            updatedItem.unit = selectedItem.unit;
+          }
+        }
         
         // Calculate total price
         if (field === 'quantity' || field === 'pricePerUnit') {
@@ -213,14 +245,22 @@ const OutletPurchase = () => {
                       <CardContent className="pt-6">
                         <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
                           <div className="md:col-span-2">
-                            <Label htmlFor={`itemName-${item.id}`}>Item Name *</Label>
-                            <Input
-                              id={`itemName-${item.id}`}
+                            <Label htmlFor={`itemName-${item.id}`}>Raw Ingredient *</Label>
+                            <Select
                               value={item.itemName}
-                              onChange={(e) => handleItemChange(item.id, 'itemName', e.target.value)}
-                              required
-                              placeholder="Enter item name"
-                            />
+                              onValueChange={(value) => handleItemChange(item.id, 'itemName', value)}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select ingredient" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {availableRawIngredients.map((availableItem) => (
+                                  <SelectItem key={availableItem.name} value={availableItem.name}>
+                                    {availableItem.name} ({availableItem.unit}) - {availableItem.category}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </div>
 
                           <div>
@@ -237,23 +277,14 @@ const OutletPurchase = () => {
                           </div>
 
                           <div>
-                            <Label htmlFor={`unit-${item.id}`}>Unit *</Label>
-                            <Select
+                            <Label htmlFor={`unit-${item.id}`}>Unit</Label>
+                            <Input
+                              id={`unit-${item.id}`}
                               value={item.unit}
-                              onValueChange={(value) => handleItemChange(item.id, 'unit', value)}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Unit" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="kg">Kg</SelectItem>
-                                <SelectItem value="g">Gram</SelectItem>
-                                <SelectItem value="l">Liter</SelectItem>
-                                <SelectItem value="ml">ML</SelectItem>
-                                <SelectItem value="pcs">Pieces</SelectItem>
-                                <SelectItem value="pack">Pack</SelectItem>
-                              </SelectContent>
-                            </Select>
+                              disabled
+                              className="bg-gray-100"
+                              placeholder="Auto-filled"
+                            />
                           </div>
 
                           <div>

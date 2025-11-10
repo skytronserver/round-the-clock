@@ -14,8 +14,6 @@ const RawIngredients = () => {
     ingredientName: '',
     category: '',
     vegNonVeg: '',
-    courseType: '',
-    spiceLevel: '',
     unit: '',
     minimumStock: '',
   });
@@ -31,8 +29,6 @@ const RawIngredients = () => {
       ingredientName: '',
       category: '',
       vegNonVeg: '',
-      courseType: '',
-      spiceLevel: '',
       unit: '',
       minimumStock: '',
     });
@@ -115,45 +111,6 @@ const RawIngredients = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <Label htmlFor="courseType">Course Type</Label>
-                <Select
-                  value={formData.courseType}
-                  onValueChange={(value) => setFormData({ ...formData, courseType: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select course type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="appetizer">Appetizer</SelectItem>
-                    <SelectItem value="main-course">Main Course</SelectItem>
-                    <SelectItem value="dessert">Dessert</SelectItem>
-                    <SelectItem value="beverage">Beverage</SelectItem>
-                    <SelectItem value="side-dish">Side Dish</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label htmlFor="spiceLevel">Spice Level</Label>
-                <Select
-                  value={formData.spiceLevel}
-                  onValueChange={(value) => setFormData({ ...formData, spiceLevel: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select spice level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="mild">Mild</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="hot">Hot</SelectItem>
-                    <SelectItem value="extra-hot">Extra Hot</SelectItem>
-                    <SelectItem value="none">None</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
