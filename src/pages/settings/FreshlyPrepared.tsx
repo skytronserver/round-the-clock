@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { useRecipes, RecipeIngredient, PreparationStep } from '@/contexts/RecipeContext';
 
 interface Ingredient {
   id: string;
@@ -21,12 +22,6 @@ interface Ingredient {
   source: 'raw-ingredient' | 'ready-mix';
 }
 
-interface PreparationStep {
-  id: string;
-  stepNumber: number;
-  instruction: string;
-  duration: string; // in minutes
-}
 
 // Available raw ingredients for recipe creation
 const availableRawIngredients = [
@@ -68,6 +63,7 @@ const availableReadyMixes = [
 
 const FreshlyPrepared = () => {
   const { toast } = useToast();
+  const { addRecipe } = useRecipes();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
 
@@ -76,7 +72,7 @@ const FreshlyPrepared = () => {
     description: '',
     category: '',
     vegNonVeg: '',
-    preparationType: 'raw-ingredients',
+    preparationTypes: ['raw-ingredients'] as string[],
     price: '',
     preparationTime: '',
     servings: '',
@@ -92,23 +88,49 @@ const FreshlyPrepared = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Dish Added",
-      description: "The freshly prepared dish has been successfully added.",
+    
+    // Convert ingredients to RecipeIngredient format
+    const recipeIngredients: RecipeIngredient[] = ingredients.map(ingredient => ({
+      id: ingredient.id,
+      ingredientName: ingredient.ingredientName,
+      quantity: ingredient.quantity,
+      unit: ingredient.unit,
+      source: ingredient.source,
+    }));
+
+    // Save recipe to context
+    addRecipe({
+      dishName: formData.dishName,
+      description: formData.description,
+      category: formData.category,
+      vegNonVeg: formData.vegNonVeg,
+      preparationType: formData.preparationTypes.join(', ') as 'raw-ingredients' | 'ready-mixes',
+      price: formData.price,
+      preparationTime: formData.preparationTime,
+      servings: formData.servings,
+      ingredients: recipeIngredients,
+      preparationSteps: preparationSteps,
     });
+
+    toast({
+      title: "Recipe Saved Successfully",
+      description: `${formData.dishName} recipe has been saved and can now be used in preparation workflows.`,
+    });
+    
     // Reset form
     setFormData({
       dishName: '',
       description: '',
       category: '',
       vegNonVeg: '',
-      preparationType: 'raw-ingredients',
+      preparationTypes: ['raw-ingredients'],
       price: '',
       preparationTime: '',
       servings: '',
     });
     setIngredients([{ id: '1', ingredientName: '', quantity: '', unit: '', source: 'raw-ingredient' }]);
     setPreparationSteps([{ id: '1', stepNumber: 1, instruction: '', duration: '' }]);
+    setCurrentStep(1);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -125,7 +147,7 @@ const FreshlyPrepared = () => {
       ingredientName: '',
       quantity: '',
       unit: '',
-      source: formData.preparationType === 'raw-ingredients' ? 'raw-ingredient' : 'ready-mix'
+      source: formData.preparationTypes.includes('raw-ingredients') ? 'raw-ingredient' : 'ready-mix'
     };
     setIngredients([...ingredients, newIngredient]);
   };
@@ -167,20 +189,37 @@ const FreshlyPrepared = () => {
     setPreparationSteps(preparationSteps.map(step => step.id === id ? { ...step, [field]: value } : step));
   };
 
-  const handlePreparationTypeChange = (value: string) => {
-    setFormData({ ...formData, preparationType: value });
+  const handlePreparationTypeChange = (value: string, checked: boolean) => {
+    let newTypes = [...formData.preparationTypes];
+    if (checked) {
+      if (!newTypes.includes(value)) {
+        newTypes.push(value);
+      }
+    } else {
+      newTypes = newTypes.filter(type => type !== value);
+    }
+    setFormData({ ...formData, preparationTypes: newTypes });
     // Reset ingredients when preparation type changes
     setIngredients([{ 
       id: '1', 
       ingredientName: '', 
       quantity: '', 
       unit: '', 
-      source: value === 'raw-ingredients' ? 'raw-ingredient' : 'ready-mix' 
+      source: 'raw-ingredient' 
     }]);
   };
 
   const getAvailableIngredients = () => {
-    return formData.preparationType === 'raw-ingredients' ? availableRawIngredients : availableReadyMixes;
+    // Return both raw ingredients and ready mixes if both are selected
+    if (formData.preparationTypes.includes('raw-ingredients') && formData.preparationTypes.includes('ready-mixes')) {
+      const rawWithSource = availableRawIngredients.map(item => ({ ...item, source: 'raw-ingredient' }));
+      const mixesWithSource = availableReadyMixes.map(item => ({ ...item, source: 'ready-mix' }));
+      return [...rawWithSource, ...mixesWithSource];
+    } else if (formData.preparationTypes.includes('raw-ingredients')) {
+      return availableRawIngredients.map(item => ({ ...item, source: 'raw-ingredient' }));
+    } else {
+      return availableReadyMixes.map(item => ({ ...item, source: 'ready-mix' }));
+    }
   };
 
   const nextStep = () => {
@@ -344,14 +383,14 @@ const FreshlyPrepared = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
-                    <Label className="mb-3 block">Preparation Type *</Label>
-                    <RadioGroup
-                      value={formData.preparationType}
-                      onValueChange={handlePreparationTypeChange}
-                      className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                    >
+                    <Label className="mb-3 block">Preparation Type * (Select one or both)</Label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white">
-                        <RadioGroupItem value="raw-ingredients" id="raw-ingredients" />
+                        <Checkbox 
+                          id="raw-ingredients"
+                          checked={formData.preparationTypes.includes('raw-ingredients')}
+                          onCheckedChange={(checked) => handlePreparationTypeChange('raw-ingredients', checked as boolean)}
+                        />
                         <div>
                           <Label htmlFor="raw-ingredients" className="font-medium cursor-pointer">
                             Using Raw Ingredients
@@ -360,7 +399,11 @@ const FreshlyPrepared = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white">
-                        <RadioGroupItem value="ready-mixes" id="ready-mixes" />
+                        <Checkbox 
+                          id="ready-mixes"
+                          checked={formData.preparationTypes.includes('ready-mixes')}
+                          onCheckedChange={(checked) => handlePreparationTypeChange('ready-mixes', checked as boolean)}
+                        />
                         <div>
                           <Label htmlFor="ready-mixes" className="font-medium cursor-pointer">
                             Using Ready Mixes
@@ -368,7 +411,7 @@ const FreshlyPrepared = () => {
                           <p className="text-sm text-gray-600">Use ready mixes from centralized facility</p>
                         </div>
                       </div>
-                    </RadioGroup>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -442,7 +485,8 @@ const FreshlyPrepared = () => {
                         <TableHeader>
                           <TableRow>
                             <TableHead>
-                              {formData.preparationType === 'raw-ingredients' ? 'Raw Ingredient' : 'Ready Mix'}
+                              {formData.preparationTypes.includes('raw-ingredients') && formData.preparationTypes.includes('ready-mixes') ? 'Ingredient/Mix' : 
+                               formData.preparationTypes.includes('raw-ingredients') ? 'Raw Ingredient' : 'Ready Mix'}
                             </TableHead>
                             <TableHead>Quantity</TableHead>
                             <TableHead>Unit</TableHead>
@@ -458,14 +502,34 @@ const FreshlyPrepared = () => {
                                   onValueChange={(value) => handleIngredientChange(ingredient.id, 'ingredientName', value)}
                                 >
                                   <SelectTrigger>
-                                    <SelectValue placeholder={`Select ${formData.preparationType === 'raw-ingredients' ? 'ingredient' : 'ready mix'}`} />
+                                    <SelectValue placeholder={`Select ${formData.preparationTypes.includes('raw-ingredients') && formData.preparationTypes.includes('ready-mixes') ? 'ingredient/mix' : 
+                                      formData.preparationTypes.includes('raw-ingredients') ? 'ingredient' : 'ready mix'}`} />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    {getAvailableIngredients().map((item) => (
-                                      <SelectItem key={item.name} value={item.name}>
-                                        {item.name} ({item.unit})
-                                      </SelectItem>
-                                    ))}
+                                    {formData.preparationTypes.includes('raw-ingredients') && formData.preparationTypes.includes('ready-mixes') ? (
+                                      <>
+                                        {/* Raw Ingredients Section */}
+                                        <div className="px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-50">Raw Ingredients</div>
+                                        {availableRawIngredients.map((item) => (
+                                          <SelectItem key={`raw-${item.name}`} value={item.name}>
+                                            🥬 {item.name} ({item.unit})
+                                          </SelectItem>
+                                        ))}
+                                        {/* Ready Mixes Section */}
+                                        <div className="px-2 py-1 text-xs font-semibold text-orange-600 bg-orange-50 mt-1">Ready Mixes</div>
+                                        {availableReadyMixes.map((item) => (
+                                          <SelectItem key={`mix-${item.name}`} value={item.name}>
+                                            🥫 {item.name} ({item.unit})
+                                          </SelectItem>
+                                        ))}
+                                      </>
+                                    ) : (
+                                      getAvailableIngredients().map((item) => (
+                                        <SelectItem key={item.name} value={item.name}>
+                                          {item.name} ({item.unit})
+                                        </SelectItem>
+                                      ))
+                                    )}
                                   </SelectContent>
                                 </Select>
                               </TableCell>

@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import CartModal from "@/components/CartModal";
 import { useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
+import { useRecipes } from "@/contexts/RecipeContext";
 import { toast } from "sonner";
 
 // Menu data for all items except ice cream
@@ -31,6 +32,22 @@ const allMenuItems = [
 
 const Menu = () => {
   const { addItem } = useCart();
+  const { recipes } = useRecipes();
+
+  // Convert recipes to menu items format
+  const recipeMenuItems = recipes.map((recipe, index) => ({
+    id: 1000 + index, // Use high IDs to avoid conflicts
+    name: recipe.dishName,
+    description: recipe.description || `${recipe.category} dish - ${recipe.vegNonVeg}`,
+    price: `₹${recipe.price}`,
+    image: '/Items/default-dish.jpg', // Default image for recipe items
+    isRecipe: true,
+    preparationTime: recipe.preparationTime,
+    servings: recipe.servings,
+  }));
+
+  // Combine static menu items with recipe items
+  const allItems = [...allMenuItems, ...recipeMenuItems];
 
   // Update the page title when the component mounts
   useEffect(() => {
@@ -68,7 +85,7 @@ const Menu = () => {
 
           {/* Menu Items Grid - Enhanced Visibility */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-            {allMenuItems.map(item => (
+            {allItems.map(item => (
               <div key={item.id} className="menu-card-enhanced group">
                 <div className="relative h-32 md:h-36 overflow-hidden rounded-t-xl">
                   <img 
@@ -79,6 +96,11 @@ const Menu = () => {
                   <div className="absolute top-2 right-2 bg-rtc-red text-white px-3 py-1 rounded-full font-bold text-sm shadow-lg">
                     {item.price}
                   </div>
+                  {(item as any).isRecipe && (
+                    <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded-full font-bold text-xs shadow-lg">
+                      Fresh
+                    </div>
+                  )}
                 </div>
                 <div className="p-3 bg-white">
                   <h3 className="font-bold text-sm md:text-base mb-2 text-rtc-dark line-clamp-2 leading-tight">{item.name}</h3>

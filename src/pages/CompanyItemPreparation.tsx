@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ChefHat, Save, Store, Clock, Users, Calculator } from 'lucide-react';
+import { ArrowLeft, ChefHat, Save, Building2, Clock, Users, Calculator } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,34 +12,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { useRecipes } from '@/contexts/RecipeContext';
 
-interface PreparationRecord {
+interface ProductionRecord {
   id: string;
   recipeId: string;
   recipeName: string;
   quantity: number;
-  outlet: string;
-  preparationDate: string;
+  unit: string;
+  productionDate: string;
   estimatedCost: number;
   status: 'planned' | 'in-progress' | 'completed';
-  chefAssigned: string;
+  staffAssigned: string;
 }
 
-const OutletPreparation = () => {
+const CompanyItemPreparation = () => {
   const { toast } = useToast();
   const { recipes } = useRecipes();
   
   const [formData, setFormData] = useState({
     selectedRecipe: '',
     quantity: '',
-    outlet: 'main',
-    preparationDate: new Date().toISOString().split('T')[0],
-    chefAssigned: '',
+    productionDate: new Date().toISOString().split('T')[0],
+    staffAssigned: '',
     notes: '',
-    wastageAmount: '',
-    wastageReason: '',
   });
 
-  const [preparationRecords, setPreparationRecords] = useState<PreparationRecord[]>([]);
+  const [productionRecords, setProductionRecords] = useState<ProductionRecord[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,35 +54,32 @@ const OutletPreparation = () => {
     const quantity = parseInt(formData.quantity);
     const estimatedCost = parseFloat(selectedRecipe.price) * quantity;
 
-    const newRecord: PreparationRecord = {
+    const newRecord: ProductionRecord = {
       id: Date.now().toString(),
       recipeId: selectedRecipe.id,
       recipeName: selectedRecipe.dishName,
       quantity: quantity,
-      outlet: formData.outlet,
-      preparationDate: formData.preparationDate,
+      unit: 'portions',
+      productionDate: formData.productionDate,
       estimatedCost: estimatedCost,
       status: 'planned',
-      chefAssigned: formData.chefAssigned,
+      staffAssigned: formData.staffAssigned,
     };
 
-    setPreparationRecords([...preparationRecords, newRecord]);
+    setProductionRecords([...productionRecords, newRecord]);
 
     toast({
-      title: "Preparation Scheduled",
-      description: `${quantity} portions of ${selectedRecipe.dishName} scheduled for ${formData.outlet} outlet. Estimated cost: ₹${estimatedCost}`,
+      title: "Production Scheduled",
+      description: `${quantity} portions of ${selectedRecipe.dishName} scheduled for production. Estimated cost: ₹${estimatedCost}`,
     });
 
     // Reset form
     setFormData({
       selectedRecipe: '',
       quantity: '',
-      outlet: 'main',
-      preparationDate: new Date().toISOString().split('T')[0],
-      chefAssigned: '',
+      productionDate: new Date().toISOString().split('T')[0],
+      staffAssigned: '',
       notes: '',
-      wastageAmount: '',
-      wastageReason: '',
     });
   };
 
@@ -99,28 +93,28 @@ const OutletPreparation = () => {
   const selectedRecipe = recipes.find(r => r.id === formData.selectedRecipe);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100">
       <Navbar />
       <div className="container mx-auto px-4 pt-32 pb-12">
         <div className="mb-8">
-          <Link to="/mis" className="inline-flex items-center text-green-600 hover:text-green-800 font-medium">
+          <Link to="/mis/company-preparation" className="inline-flex items-center text-orange-600 hover:text-orange-800 font-medium">
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to MIS Dashboard
+            Back to Company Preparation
           </Link>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Preparation Form */}
+            {/* Production Form */}
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <div className="bg-green-100 p-3 rounded-lg">
-                    <Store className="w-6 h-6 text-green-600" />
+                  <div className="bg-orange-100 p-3 rounded-lg">
+                    <Building2 className="w-6 h-6 text-orange-600" />
                   </div>
                   <div>
-                    <CardTitle>Freshly Prepared Items</CardTitle>
-                    <CardDescription>Create fresh items using raw ingredients or ready mixes with wastage tracking</CardDescription>
+                    <CardTitle>Schedule Production</CardTitle>
+                    <CardDescription>Select recipe and quantity for centralized production</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -133,7 +127,7 @@ const OutletPreparation = () => {
                       onValueChange={(value) => setFormData({ ...formData, selectedRecipe: value })}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Choose a recipe to prepare" />
+                        <SelectValue placeholder="Choose a recipe to produce" />
                       </SelectTrigger>
                       <SelectContent>
                         {recipes.map((recipe) => (
@@ -167,25 +161,8 @@ const OutletPreparation = () => {
                           <span className="ml-2">{selectedRecipe.preparationTime} min</span>
                         </div>
                         <div>
-                          <span className="text-blue-600">Method:</span>
-                          <span className="ml-2">{selectedRecipe.preparationType}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Preparation Method Indicator */}
-                      <div className="mt-3 p-3 bg-white rounded border-l-4 border-blue-500">
-                        <div className="text-sm font-medium text-blue-800">Preparation Method:</div>
-                        <div className="flex items-center gap-2 mt-1">
-                          {selectedRecipe.preparationType?.includes('raw-ingredients') && (
-                            <Badge variant="outline" className="text-green-600 border-green-300">
-                              🥬 Using Raw Ingredients
-                            </Badge>
-                          )}
-                          {selectedRecipe.preparationType?.includes('ready-mixes') && (
-                            <Badge variant="outline" className="text-orange-600 border-orange-300">
-                              🥫 Using Ready Mixes
-                            </Badge>
-                          )}
+                          <span className="text-blue-600">Cost/Portion:</span>
+                          <span className="ml-2">₹{selectedRecipe.price}</span>
                         </div>
                       </div>
                     </div>
@@ -202,95 +179,38 @@ const OutletPreparation = () => {
                         value={formData.quantity}
                         onChange={handleChange}
                         required
-                        placeholder="e.g., 10"
+                        placeholder="e.g., 50"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="outlet">Outlet *</Label>
-                      <Select
-                        value={formData.outlet}
-                        onValueChange={(value) => setFormData({ ...formData, outlet: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="main">Main Branch</SelectItem>
-                          <SelectItem value="mall">Mall Branch</SelectItem>
-                          <SelectItem value="airport">Airport Branch</SelectItem>
-                          <SelectItem value="downtown">Downtown Branch</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="preparationDate">Preparation Date *</Label>
+                      <Label htmlFor="productionDate">Production Date *</Label>
                       <Input
-                        id="preparationDate"
-                        name="preparationDate"
+                        id="productionDate"
+                        name="productionDate"
                         type="date"
-                        value={formData.preparationDate}
+                        value={formData.productionDate}
                         onChange={handleChange}
                         required
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="chefAssigned">Assign Chef</Label>
-                      <Select
-                        value={formData.chefAssigned}
-                        onValueChange={(value) => setFormData({ ...formData, chefAssigned: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select chef" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="chef-john">Chef John Doe</SelectItem>
-                          <SelectItem value="chef-sarah">Chef Sarah Wilson</SelectItem>
-                          <SelectItem value="chef-mike">Chef Mike Johnson</SelectItem>
-                          <SelectItem value="chef-lisa">Chef Lisa Brown</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
                   </div>
 
-                  {/* Wastage Tracking */}
-                  <div className="border-t pt-6">
-                    <h4 className="font-medium text-gray-800 mb-4">📊 Wastage Tracking (Optional)</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="wastageAmount">Wastage Amount</Label>
-                        <Input
-                          id="wastageAmount"
-                          name="wastageAmount"
-                          type="number"
-                          step="0.01"
-                          value={formData.wastageAmount}
-                          onChange={handleChange}
-                          placeholder="e.g., 0.5 kg"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="wastageReason">Wastage Reason</Label>
-                        <Select
-                          value={formData.wastageReason}
-                          onValueChange={(value) => setFormData({ ...formData, wastageReason: value })}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select reason" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="overcooking">Overcooking</SelectItem>
-                            <SelectItem value="spillage">Spillage</SelectItem>
-                            <SelectItem value="quality-issue">Quality Issue</SelectItem>
-                            <SelectItem value="preparation-error">Preparation Error</SelectItem>
-                            <SelectItem value="customer-return">Customer Return</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
+                  <div>
+                    <Label htmlFor="staffAssigned">Assign Staff</Label>
+                    <Select
+                      value={formData.staffAssigned}
+                      onValueChange={(value) => setFormData({ ...formData, staffAssigned: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select chef/staff" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="chef-raj">Chef Raj Kumar</SelectItem>
+                        <SelectItem value="chef-priya">Chef Priya Singh</SelectItem>
+                        <SelectItem value="chef-amit">Chef Amit Sharma</SelectItem>
+                        <SelectItem value="kitchen-team">Kitchen Team</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   {formData.quantity && selectedRecipe && (
@@ -303,17 +223,12 @@ const OutletPreparation = () => {
                         <div>Quantity: {formData.quantity} portions</div>
                         <div>Cost per portion: ₹{selectedRecipe.price}</div>
                         <div className="font-semibold">Total Estimated Cost: ₹{(parseFloat(selectedRecipe.price) * parseInt(formData.quantity || '0')).toFixed(2)}</div>
-                        {formData.wastageAmount && (
-                          <div className="text-red-600 mt-1">
-                            <div>⚠️ Wastage: {formData.wastageAmount} ({formData.wastageReason})</div>
-                          </div>
-                        )}
                       </div>
                     </div>
                   )}
 
                   <div>
-                    <Label htmlFor="notes">Preparation Notes</Label>
+                    <Label htmlFor="notes">Production Notes</Label>
                     <Textarea
                       id="notes"
                       name="notes"
@@ -326,13 +241,13 @@ const OutletPreparation = () => {
 
                   <Button type="submit" className="w-full">
                     <Save className="w-4 h-4 mr-2" />
-                    Schedule Preparation
+                    Schedule Production
                   </Button>
                 </form>
               </CardContent>
             </Card>
 
-            {/* Preparation Schedule */}
+            {/* Production Schedule */}
             <Card>
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -340,21 +255,21 @@ const OutletPreparation = () => {
                     <Clock className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <CardTitle>Preparation Schedule</CardTitle>
-                    <CardDescription>Upcoming preparation tasks</CardDescription>
+                    <CardTitle>Production Schedule</CardTitle>
+                    <CardDescription>Upcoming production tasks</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {preparationRecords.length === 0 ? (
+                  {productionRecords.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">
                       <ChefHat className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                      <p>No preparation scheduled yet</p>
-                      <p className="text-sm">Schedule your first preparation task</p>
+                      <p>No production scheduled yet</p>
+                      <p className="text-sm">Schedule your first production task</p>
                     </div>
                   ) : (
-                    preparationRecords.map((record) => (
+                    productionRecords.map((record) => (
                       <div key={record.id} className="border rounded-lg p-4 bg-white">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-medium">{record.recipeName}</h4>
@@ -362,10 +277,9 @@ const OutletPreparation = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
                           <div>Quantity: {record.quantity} portions</div>
-                          <div>Outlet: {record.outlet}</div>
-                          <div>Date: {record.preparationDate}</div>
+                          <div>Date: {record.productionDate}</div>
                           <div>Cost: ₹{record.estimatedCost.toFixed(2)}</div>
-                          <div className="col-span-2">Chef: {record.chefAssigned || 'Unassigned'}</div>
+                          <div>Staff: {record.staffAssigned || 'Unassigned'}</div>
                         </div>
                       </div>
                     ))
@@ -380,4 +294,4 @@ const OutletPreparation = () => {
   );
 };
 
-export default OutletPreparation;
+export default CompanyItemPreparation;

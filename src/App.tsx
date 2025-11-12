@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { OrderProvider } from "@/contexts/OrderContext";
 import { FeedbackProvider } from "@/contexts/FeedbackContext";
+import { RecipeProvider } from "@/contexts/RecipeContext";
 import Index from "./pages/Index";
 import Menu from "./pages/Menu";
 import Feedback from "./pages/Feedback";
@@ -17,6 +18,7 @@ import RawIngredients from "./pages/settings/RawIngredients";
 import ReadyToSale from "./pages/settings/ReadyToSale";
 import FreshlyPrepared from "./pages/settings/FreshlyPrepared";
 import ItemMix from "./pages/settings/ItemMix";
+import UnitMeasurement from "./pages/settings/UnitMeasurement";
 import Purchase from "./pages/Purchase";
 import CompanyPurchase from "./pages/purchase/CompanyPurchase";
 import OutletPurchase from "./pages/purchase/OutletPurchase";
@@ -35,10 +37,20 @@ import Return from "./pages/Return";
 import Wastage from "./pages/Wastage";
 import FreshlyPreparedItems from "./pages/FreshlyPreparedItems";
 import OutletPreparation from "./pages/OutletPreparation";
+import CompanyPreparation from "./pages/CompanyPreparation";
+import CompanyItemPreparation from "./pages/CompanyItemPreparation";
 import Check from "./pages/Check";
 import Dispatch from "./pages/Dispatch";
 import Report from "./pages/Report";
 import Promotion from "./pages/Promotion";
+import ItemsTimeReport from "./pages/reports/ItemsTimeReport";
+import EventBasedOffers from "./pages/promotions/EventBasedOffers";
+import HappyHourDeals from "./pages/promotions/HappyHourDeals";
+import OutletBasedDiscounts from "./pages/promotions/OutletBasedDiscounts";
+import ItemBasedOffers from "./pages/promotions/ItemBasedOffers";
+import PaymentBasedOffers from "./pages/promotions/PaymentBasedOffers";
+import BankAccountBasedOffers from "./pages/promotions/BankAccountBasedOffers";
+import LoyalCustomer from "./pages/promotions/LoyalCustomer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -49,6 +61,7 @@ const App = () => (
       <FeedbackProvider>
         <OrderProvider>
           <CartProvider>
+            <RecipeProvider>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -89,6 +102,11 @@ const App = () => (
                 <Route path="/mis/settings/item-mix" element={
                   <ProtectedRoute>
                     <ItemMix />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/settings/unit-measurement" element={
+                  <ProtectedRoute>
+                    <UnitMeasurement />
                   </ProtectedRoute>
                 } />
                 <Route path="/mis/purchase/company" element={
@@ -142,11 +160,11 @@ const App = () => (
                     <CompanyInventory />
                   </ProtectedRoute>
                 } />
-                {/* <Route path="/mis/inventory/outlet" element={
+                <Route path="/mis/inventory/outlet" element={
                   <ProtectedRoute>
                     <OutletInventory />
                   </ProtectedRoute>
-                } />  */}
+                } /> 
                 <Route path="/mis/inventory" element={
                   <ProtectedRoute>
                     <Inventory />
@@ -182,6 +200,16 @@ const App = () => (
                     <OutletPreparation />
                   </ProtectedRoute>
                 } />
+                <Route path="/mis/company-preparation" element={
+                  <ProtectedRoute>
+                    <CompanyPreparation />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/company-item-preparation" element={
+                  <ProtectedRoute>
+                    <CompanyItemPreparation />
+                  </ProtectedRoute>
+                } />
                 <Route path="/mis/check" element={
                   <ProtectedRoute>
                     <Check />
@@ -202,10 +230,51 @@ const App = () => (
                     <Promotion />
                   </ProtectedRoute>
                 } />
+                <Route path="/mis/report/items-time" element={
+                  <ProtectedRoute>
+                    <ItemsTimeReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/event-based-offers" element={
+                  <ProtectedRoute>
+                    <EventBasedOffers />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/happy-hour-deals" element={
+                  <ProtectedRoute>
+                    <HappyHourDeals />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/outlet-based-discounts" element={
+                  <ProtectedRoute>
+                    <OutletBasedDiscounts />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/item-based-offers" element={
+                  <ProtectedRoute>
+                    <ItemBasedOffers />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/payment-based-offers" element={
+                  <ProtectedRoute>
+                    <PaymentBasedOffers />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/bank-account-based-offers" element={
+                  <ProtectedRoute>
+                    <BankAccountBasedOffers />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/promotion/loyal-customer" element={
+                  <ProtectedRoute>
+                    <LoyalCustomer />
+                  </ProtectedRoute>
+                } />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
+            </RecipeProvider>
           </CartProvider>
         </OrderProvider>
       </FeedbackProvider>

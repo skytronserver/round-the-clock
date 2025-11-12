@@ -95,9 +95,6 @@ const ItemMixInventory = () => {
               <Link to="/mis/wastage">
                 <Button variant="outline" size="sm">Wastage</Button>
               </Link>
-              <Link to="/mis/freshly-prepared">
-                <Button variant="outline" size="sm">Create New</Button>
-              </Link>
             </div>
           </div>
         </div>

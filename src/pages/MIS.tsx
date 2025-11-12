@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Settings, ShoppingBag, FileText, Megaphone, Package, Warehouse } from 'lucide-react';
+import { Settings, ShoppingBag, FileText, Megaphone, Package, Warehouse, ChefHat, Users } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
 const MIS = () => {
@@ -59,7 +59,38 @@ const MIS = () => {
               </div>
             </div>
           </Link>
-       {/*Inventory Card */}
+
+          {/* Company Preparation Card */}
+          <Link to="/mis/company-preparation">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-t-4 border-yellow-500">
+              <div className="flex flex-col items-center text-center">
+                <div className="bg-yellow-100 p-4 rounded-full mb-4">
+                  <ChefHat className="w-12 h-12 text-yellow-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Company Preparation</h2>
+                <p className="text-gray-600 text-sm">
+                  Create item mixes and final products
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Outlet Preparation Card */}
+          <Link to="/mis/outlet-preparation">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-t-4 border-teal-500">
+              <div className="flex flex-col items-center text-center">
+                <div className="bg-teal-100 p-4 rounded-full mb-4">
+                  <Users className="w-12 h-12 text-teal-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Outlet Preparation</h2>
+                <p className="text-gray-600 text-sm">
+                  Fresh preparation at outlet level
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/*Inventory Card */}
           <Link to="/mis/inventory">
             <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-t-4 border-purple-500">
               <div className="flex flex-col items-center text-center">
@@ -75,7 +106,7 @@ const MIS = () => {
           </Link>
 
           {/* Report Card */}
-          {/* <Link to="/mis/report">
+          <Link to="/mis/report">
             <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-t-4 border-pink-500">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-pink-100 p-4 rounded-full mb-4">
@@ -87,10 +118,10 @@ const MIS = () => {
                 </p>
               </div>
             </div>
-          </Link> */}
+          </Link>
 
           {/* Promotion Card */}
-          {/* <Link to="/mis/promotion">
+          <Link to="/mis/promotion">
             <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-t-4 border-orange-500">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-orange-100 p-4 rounded-full mb-4">
@@ -102,7 +133,7 @@ const MIS = () => {
                 </p>
               </div>
             </div>
-          </Link> */}
+          </Link>
         </div>
       </div>
     </div>

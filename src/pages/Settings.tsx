@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Store, Carrot, UtensilsCrossed, ChefHat, Blend } from 'lucide-react';
+import { ArrowLeft, Store, Carrot, UtensilsCrossed, ChefHat, Blend, Ruler } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
 const Settings = () => {
@@ -21,7 +21,7 @@ const Settings = () => {
           Configure your system settings
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Create Outlet */}
           <Link to="/mis/settings/create-outlet">
             <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-l-4 border-blue-500">
@@ -101,6 +101,23 @@ const Settings = () => {
                   <h2 className="text-xl font-bold text-gray-800 mb-2">Set/Create Item Mix</h2>
                   <p className="text-gray-600 text-sm">
                     Configure ready-to-use ingredient mixes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Unit Measurement Table */}
+          <Link to="/mis/settings/unit-measurement">
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 cursor-pointer transform hover:-translate-y-2 border-l-4 border-orange-500">
+              <div className="flex items-start gap-4">
+                <div className="bg-orange-100 p-3 rounded-lg">
+                  <Ruler className="w-8 h-8 text-orange-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">Unit Measurement Table</h2>
+                  <p className="text-gray-600 text-sm">
+                    Manage standardized measurement units
                   </p>
                 </div>
               </div>

@@ -147,9 +147,6 @@ const OutletInventory = () => {
               <Link to="/mis/wastage">
                 <Button variant="outline" size="sm">Wastage</Button>
               </Link>
-              <Link to="/mis/outlet-preparation">
-                <Button variant="outline" size="sm">Freshly Prepared</Button>
-              </Link>
             </div>
           </div>
         </div>
