@@ -44,6 +44,16 @@ import Dispatch from "./pages/Dispatch";
 import Report from "./pages/Report";
 import Promotion from "./pages/Promotion";
 import ItemsTimeReport from "./pages/reports/ItemsTimeReport";
+import OutletReport from "./pages/reports/OutletReport";
+import ProfitLossReport from "./pages/reports/ProfitLossReport";
+import ItemWiseSalesReport from "./pages/reports/ItemWiseSalesReport";
+import DailySalesReport from "./pages/reports/DailySalesReport";
+import BestSellingItemsReport from "./pages/reports/BestSellingItemsReport";
+import PaymentModeReport from "./pages/reports/PaymentModeReport";
+import CustomerFeedbackItemsReport from "./pages/reports/CustomerFeedbackItemsReport";
+import CustomerFeedbackOutletsReport from "./pages/reports/CustomerFeedbackOutletsReport";
+import OutletwiseSaleToggleReport from "./pages/reports/OutletwiseSaleToggleReport";
+import ItemwiseSaleToggleReport from "./pages/reports/ItemwiseSaleToggleReport";
 import EventBasedOffers from "./pages/promotions/EventBasedOffers";
 import HappyHourDeals from "./pages/promotions/HappyHourDeals";
 import OutletBasedDiscounts from "./pages/promotions/OutletBasedDiscounts";
@@ -233,6 +243,56 @@ const App = () => (
                 <Route path="/mis/report/items-time" element={
                   <ProtectedRoute>
                     <ItemsTimeReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/outlet" element={
+                  <ProtectedRoute>
+                    <OutletReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/profit-loss" element={
+                  <ProtectedRoute>
+                    <ProfitLossReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/item-wise-sales" element={
+                  <ProtectedRoute>
+                    <ItemWiseSalesReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/daily-sales" element={
+                  <ProtectedRoute>
+                    <DailySalesReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/best-selling" element={
+                  <ProtectedRoute>
+                    <BestSellingItemsReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/payment-mode" element={
+                  <ProtectedRoute>
+                    <PaymentModeReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/customer-feedback-items" element={
+                  <ProtectedRoute>
+                    <CustomerFeedbackItemsReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/customer-feedback-outlets" element={
+                  <ProtectedRoute>
+                    <CustomerFeedbackOutletsReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/outletwise-sale-toggle" element={
+                  <ProtectedRoute>
+                    <OutletwiseSaleToggleReport />
+                  </ProtectedRoute>
+                } />
+                <Route path="/mis/report/itemwise-sale-toggle" element={
+                  <ProtectedRoute>
+                    <ItemwiseSaleToggleReport />
                   </ProtectedRoute>
                 } />
                 <Route path="/mis/promotion/event-based-offers" element={
